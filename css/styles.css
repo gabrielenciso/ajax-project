@@ -17,13 +17,29 @@ header h1 {
   margin: 10px 20px 0;
 }
 
+button {
+  color: #f9f9f9;
+  background-color: #ff5f00;
+  border-radius: 5px;
+  border: none;
+  position: absolute;
+  top: 25px;
+  right: 25px;
+  font-size: 21px;
+  padding: 5px 13px;
+}
+
 #map {
   height: 91vh;
-  width: 67%;
+  width: 100%;
 }
 
 .entries-list {
   background-color: #f9f9f9;
+}
+
+.map-box {
+  position: relative;
 }
 
 .font-header {
