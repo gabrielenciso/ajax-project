@@ -1,3 +1,44 @@
+header {
+  background-color: #f6f6f6;
+}
+
+hr {
+  display: block;
+  height: 1px;
+  border: 0;
+  border-top: 1px solid #b0b0b0;
+  margin: 0 0 2px;
+}
+
+header h1 {
+  color: #ff5f00;
+  font-size: 52px;
+  font-weight: 400;
+  margin: 10px 20px 0;
+}
+
 #map {
-  height: 100vh;
+  height: 91vh;
+  width: 67%;
+}
+
+.entries-list {
+  background-color: #f9f9f9;
+}
+
+.font-header {
+  font-family: "Josefin Sans", sans-serif;
+}
+
+.font-body {
+  font-family: Nunito, sans-serif;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.no-entries h3 {
+  font-size: 28px;
+  font-weight: 400;
 }
