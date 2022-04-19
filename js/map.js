@@ -7,6 +7,15 @@ function initMap() {
     mapId: '2d5a995064aaf095',
     disableDefaultUI: true
   });
+
+  // add event listener whenever map is clicked
+  // when clicked we want to log a new marker and appear a pop up
+  // ^^ separate functions
+
+  google.maps.event.addListener(map, 'click', function (event) {
+    // addMarker(event.latLng, map);
+    addEntry();
+  });
 }
 
 window.initMap = initMap;

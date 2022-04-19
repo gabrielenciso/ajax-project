@@ -1,5 +1,21 @@
+.hidden {
+  display: none;
+}
+
 .row {
   display: flex;
+}
+
+.flex-wrap {
+  flex-wrap: wrap;
+}
+
+.col-full {
+  width: 100%;
+}
+
+.col-half {
+  width: 50%;
 }
 
 .col-third {
@@ -8,4 +24,42 @@
 
 .col-two-thirds {
   width: 67%;
+}
+
+.col-fifth {
+  width: 20%;
+}
+
+.col-three-fifth {
+  width: 60%;
+}
+
+.justify-align-center {
+  justify-content: center;
+  align-items: center;
+}
+
+.align-items-center {
+  align-items: center;
+}
+
+.text-align-center {
+  text-align: center;
+}
+
+.space-evenly {
+  justify-content: space-evenly;
+}
+
+.space-between {
+  justify-content: space-between;
+}
+
+.form-container {
+  margin: 0 auto;
+  width: 90%;
+}
+
+.overflow-auto {
+  overflow: auto;
 }
