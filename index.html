@@ -5,16 +5,93 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>AJAX Project</title>
   <link rel="icon" href="images/favicon.ico">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&family=Nunito:wght@300;400;500&display=swap"
+    rel="stylesheet">
+  <script src="https://kit.fontawesome.com/49acd81928.js" crossorigin="anonymous"></script>
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
-  <header>
+  <header class="row">
+    <h1 class="font-header">Recs</h1>
   </header>
-  <main>
+  <hr>
+  <main class="row-main">
+    <div class="entries-list col-third">
+      <div class="show-more-entries">
+        <i class="fa-solid fa-minus fa-2xl"></i>
+      </div>
+      <div class="no-entries text-align-center">
+        <h3 class="font-body">no recommendations</h3>
+      </div>
+    </div>
+    <div class="map-box col-two-thirds">
+      <div id="map" class=""></div>
+      <button class="marker-button">make a rec</button>
+      <div class="marker-overlay hidden">
+        <h3 class="font-body">click on the map to add a marker</h3>
+      </div>
+      <div class="entry-overlay hidden">
+        <div class="row justify-align-center full-vh">
+          <div class="add-friend">
+            <div class="form-container">
+              <form id="friend-form">
+                <h3 class="text-align-center font-header">Recommendation from...</h3>
+                <div class="row space-between align-items-center">
+                  <div class="input-friend-image col-fifth">
+                    <input type="file" name="friendImgUrl" id="friendImgUpload" class="hidden">
+                    <img src="images/personsample.jpeg">
+                  </div>
+
+                  <input name="friend" class="col-three-fifth" type="text" placeholder="name...">
+                </div>
+                <div class="form-button">
+                  <button type="submit">next</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="add-entry hidden">
+            <div class="form-container">
+              <form class="row flex-wrap" id="entry-form">
+                <div class="entry-image col-half">
+                  <input type="file" name="entryImage" id="entryImageUpload" class="hidden">
+                  <img src="images/placeholder-image-square 2.jpg">
+                </div>
+                <div class="col-half entry-name-tags">
+                  <div class="row justify-align-center">
+                    <div class="entry-friend-image">
+                      <img src="images/personsample.jpeg">
+                    </div>
+                    <h3 class="font-body">Friend's Rec</h3>
+                  </div>
+                  <input id="rec-name" class="rec-name font-body" name="recName" type="text" placeholder="Name...">
+
+                </div>
+                <div class="col-full">
+                  <textarea class="font-body" name="notes" placeholder="Notes..."></textarea>
+                </div>
+                <div class="form-button col-full">
+                  <button>mark</button>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   </main>
   <script src="js/data.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/map.js"></script>
+  <script
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfUgDMB_ru5W6BPuTGY2wWQAf8CezIG2Q&map_ids=2d5a995064aaf095&callback=initMap"
+    async defer>
+  </script>
+
 </body>
 </html>
