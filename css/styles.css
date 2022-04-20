@@ -217,7 +217,7 @@ button:hover {
   border: 1px solid #b20600;
 }
 
-.add-tag-button {
+/* .add-tag-button {
   height: 30px;
   width: 30px;
   border-radius: 50%;
@@ -228,10 +228,6 @@ button:hover {
   border-radius: 50%;
   width: 100%;
   filter: drop-shadow(-1px 2px 2px #c2c2c2);
-}
-
-.add-tag-button i::before {
-  top: 10px;
 }
 
 .input-tag-name {
@@ -261,7 +257,7 @@ button:hover {
   position: relative;
   top: 1px;
   color: #b0b0b0;
-}
+} */
 
 img[src$="#custom-marker"] {
   border-radius: 50%;

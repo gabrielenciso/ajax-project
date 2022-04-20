@@ -117,7 +117,7 @@ function handleSlide() {
   }
 }
 
-var mobile = true;
+var mobile = false;
 function handleScreenChange(event) {
   if (!event.matches) {
     $entriesList.style.height = '';
