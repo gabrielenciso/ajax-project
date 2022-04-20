@@ -1,5 +1,4 @@
 var map;
-// var iconUrl = 'images/personsample.jpeg';
 
 function initMap() {
 
@@ -20,7 +19,6 @@ function handleClickMap(event) {
     return;
   }
 
-  // makeMarker(event.latLng, map, iconUrl); // wait until friend image finishes then run
   openEntry(event, map);
 }
 
@@ -39,9 +37,5 @@ function makeMarker(location, map, iconUrl) {
   mapData.markersLocation.unshift(marker);
   mapData.markerId++;
 }
-
-// function setMarker(marker) {
-//   marker.setMap(map);
-// }
 
 window.initMap = initMap;
