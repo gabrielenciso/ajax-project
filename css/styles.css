@@ -116,13 +116,6 @@ button:hover {
   height: 100%;
 }
 
-/* .add-friend select {
-  height: 50px;
-  width: 70%;
-  border: 1px solid #b0b0b0;
-  border-radius: 5px;
-} */
-
 .add-friend input {
   height: 50px;
   width: 70%;
@@ -216,48 +209,6 @@ button:hover {
   outline: none;
   border: 1px solid #b20600;
 }
-
-/* .add-tag-button {
-  height: 30px;
-  width: 30px;
-  border-radius: 50%;
-}
-
-.add-tag-button i {
-  color: #f9f9f9;
-  border-radius: 50%;
-  width: 100%;
-  filter: drop-shadow(-1px 2px 2px #c2c2c2);
-}
-
-.input-tag-name {
-  border: none;
-  background-color: #f9f9f9;
-  margin-left: 10px;
-}
-
-.input-tag-name:focus {
-  outline: none;
-}
-
-.entry-tags-list {
-  margin-top: 8px;
-}
-
-.entry-tags-list span {
-  background-color: #e5e5e5;
-  color: #ff5f00;
-  padding: 0 5px;
-  border-radius: 7px;
-  margin-right: 5px;
-  margin-bottom: 5px;
-}
-
-.entry-tags-list span i {
-  position: relative;
-  top: 1px;
-  color: #b0b0b0;
-} */
 
 img[src$="#custom-marker"] {
   border-radius: 50%;
