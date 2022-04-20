@@ -63,3 +63,7 @@
 .overflow-auto {
   overflow: auto;
 }
+
+.full-vh {
+  height: 100%;
+}

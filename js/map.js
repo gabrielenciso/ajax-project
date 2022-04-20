@@ -13,9 +13,21 @@ function initMap() {
   // ^^ separate functions
 
   google.maps.event.addListener(map, 'click', function (event) {
-    // addMarker(event.latLng, map);
-    addEntry();
+    if (data.marking === false) {
+      return;
+    }
+    addMarker(event.latLng, map);
+    openEntry();
   });
+}
+
+function addMarker(location, map) {
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map
+  });
+  mapData.markersLocation.unshift(marker);
+  mapData.markerId++;
 }
 
 window.initMap = initMap;

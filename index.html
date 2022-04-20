@@ -32,68 +32,78 @@
       <div class="marker-overlay hidden">
         <h3 class="font-body">click on the map to add a marker</h3>
       </div>
-      <div class="entry-overlay row justify-align-center">
-        <div class="add-friend hidden">
-          <div class="form-container">
-            <form>
-              <h3 class="text-align-center font-header">Recommendation from...</h3>
-              <div class="row space-between align-items-center">
-                <div class="input-friend-image col-fifth">
-                  <img src="images/personsample.jpeg">
-                </div>
-                <select name="friends" class="col-three-fifth">
-                  <option>sample</option>
-                </select>
-              </div>
-              <div class="form-button">
-                <button type="submit">next</button>
-              </div>
-            </form>
-          </div>
-        </div>
-        <div class="add-entry overflow-auto">
-          <div class="form-container">
-            <form class="row flex-wrap">
-              <div class="entry-image col-half">
-                <img src="images/placeholder-image-square 2.jpg">
-              </div>
-              <div class="col-half entry-name-tags">
-                <div class="row justify-align-center">
-                  <div class="entry-friend-image">
+      <div class="entry-overlay hidden">
+        <div class="row justify-align-center full-vh">
+          <div class="add-friend">
+            <div class="form-container">
+              <form id="friend-form">
+                <h3 class="text-align-center font-header">Recommendation from...</h3>
+                <div class="row space-between align-items-center">
+                  <div class="input-friend-image col-fifth">
+                    <input type="file" name="friendImgUrl" id="friendImgUpload" class="hidden">
                     <img src="images/personsample.jpeg">
                   </div>
-                  <h3 class="font-body">Friend's Rec</h3>
+                  <!-- <select name="friends" class="col-three-fifth">
+                    <option>Friend 1</option>
+                  </select> -->
+                  <input name="friend" class="col-three-fifth" type="text" placeholder="name...">
                 </div>
-                <input id="rec-name" class="rec-name font-body" name="rec-name" type="text" placeholder="Name...">
-                <div class="entry-tags-box">
-                  <div class="row">
-                    <div class="add-tag-button row justify-align-center">
-                      <i class="fa-solid fa-plus"></i>
+                <div class="form-button">
+                  <button type="submit">next</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="add-entry hidden">
+            <div class="form-container">
+              <form class="row flex-wrap" id="entry-form">
+                <div class="entry-image col-half">
+                  <input type="file" name="entryImage" id="entryImageUpload" class="hidden">
+                  <img src="images/placeholder-image-square 2.jpg">
+                </div>
+                <div class="col-half entry-name-tags">
+                  <div class="row justify-align-center">
+                    <div class="entry-friend-image">
+                      <img src="images/personsample.jpeg">
                     </div>
-                    <input id="input-tag-name" class="input-tag-name font-body" name="input-tag-name" type="text" placeholder="Add Tags...">
+                    <h3 class="font-body">Friend's Rec</h3>
                   </div>
-                  <div class="row flex-wrap entry-tags-list font-body">
-                    <span>test <i class="fa-solid fa-xmark"></i> </span>
-                    <span>test <i class="fa-solid fa-xmark"></i> </span>
-                    <span>test <i class="fa-solid fa-xmark"></i> </span>
+                  <input id="rec-name" class="rec-name font-body" name="recName" type="text" placeholder="Name...">
+                  <div class="entry-tags-box">
+                    <div class="row">
+                      <div class="add-tag-button row justify-align-center">
+                        <i class="fa-solid fa-circle-plus fa-2xl"></i>
+                      </div>
+                      <input id="input-tag-name" class="input-tag-name font-body" name="input-tag-name" type="text"
+                        placeholder="Add Tags...">
+                    </div>
+                    <div class="row flex-wrap entry-tags-list font-body">
+                      <span>test <i class="fa-solid fa-xmark"></i> </span>
+                      <span>test <i class="fa-solid fa-xmark"></i> </span>
+                      <span>test <i class="fa-solid fa-xmark"></i> </span>
+                      <span>test <i class="fa-solid fa-xmark"></i> </span>
+                      <span>test <i class="fa-solid fa-xmark"></i> </span>
+                      <span>test <i class="fa-solid fa-xmark"></i> </span>
+                      <span>test <i class="fa-solid fa-xmark"></i> </span>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div class="col-full">
-                <textarea class="font-body" placeholder="Notes..."></textarea>
-              </div>
-              <div class="form-button col-full">
-                <button>mark</button>
-              </div>
-            </form>
+                <div class="col-full">
+                  <textarea class="font-body" name="notes" placeholder="Notes..."></textarea>
+                </div>
+                <div class="form-button col-full">
+                  <button>mark</button>
+                </div>
+              </form>
+            </div>
           </div>
         </div>
       </div>
     </div>
   </main>
   <script src="js/data.js"></script>
-  <script src="js/map.js"></script>
   <script src="js/main.js"></script>
+  <script src="js/map.js"></script>
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfUgDMB_ru5W6BPuTGY2wWQAf8CezIG2Q&map_ids=2d5a995064aaf095&callback=initMap"
     async defer>

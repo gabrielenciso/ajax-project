@@ -87,7 +87,7 @@ button {
   margin: auto;
   background-color: #f9f9f9;
   height: 31vh;
-  width: 60%;
+  width: 50%;
   border-radius: 20px;
   border: 1px solid #b20600;
 }
@@ -112,11 +112,25 @@ button {
   height: 100%;
 }
 
-.add-friend select {
+/* .add-friend select {
   height: 50px;
   width: 70%;
   border: 1px solid #b0b0b0;
   border-radius: 5px;
+} */
+
+.add-friend input {
+  height: 50px;
+  width: 70%;
+  border: 1px solid #b0b0b0;
+  border-radius: 5px;
+  font-size: 18px;
+  padding: 10px;
+}
+
+.add-friend input:focus {
+  outline: none;
+  border: 1px solid #b20600;
 }
 
 .form-button {
@@ -128,11 +142,12 @@ button {
 .add-entry {
   margin: 0 auto;
   background-color: #f9f9f9;
-  height: 54vh;
-  width: 70%;
+  height: 410px;
+  width: 60%;
   padding-top: 27px;
   border-radius: 25px;
   border: 1px solid #b20600;
+  overflow: auto;
 }
 
 .add-entry h3 {
@@ -202,17 +217,23 @@ button {
   height: 30px;
   width: 30px;
   border-radius: 50%;
-  box-shadow: -1px 2px 3px 1px #cfcfcf;
 }
 
 .add-tag-button i {
-  color: #b0b0b0;
+  color: #f9f9f9;
+  border-radius: 50%;
+  width: 100%;
+  filter: drop-shadow(-1px 2px 2px #c2c2c2);
+}
+
+.add-tag-button i::before {
+  top: 10px;
 }
 
 .input-tag-name {
   border: none;
   background-color: #f9f9f9;
-  padding-left: 10px;
+  margin-left: 10px;
 }
 
 .input-tag-name:focus {
