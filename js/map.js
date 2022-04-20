@@ -1,33 +1,47 @@
 var map;
+// var iconUrl = 'images/personsample.jpeg';
 
 function initMap() {
-  map = new google.maps.Map(document.getElementById('map'), {
-    center: { lat: 33.65016435282003, lng: -117.83921394615153 },
+
+  var mapOptions = {
+    center: { lat: 37.759960311146166, lng: -122.42706470323323 },
     zoom: 18,
     mapId: '2d5a995064aaf095',
     disableDefaultUI: true
-  });
+  };
 
-  // add event listener whenever map is clicked
-  // when clicked we want to log a new marker and appear a pop up
-  // ^^ separate functions
+  map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
-  google.maps.event.addListener(map, 'click', function (event) {
-    if (data.marking === false) {
-      return;
-    }
-    addMarker(event.latLng, map);
-    openEntry();
-  });
+  google.maps.event.addListener(map, 'click', handleClickMap);
 }
 
-function addMarker(location, map) {
+function handleClickMap(event) {
+  if (data.marking === false) {
+    return;
+  }
+
+  // makeMarker(event.latLng, map, iconUrl); // wait until friend image finishes then run
+  openEntry(event, map);
+}
+
+function makeMarker(location, map, iconUrl) {
   var marker = new google.maps.Marker({
     position: location,
-    map: map
+    map: map,
+    icon: {
+      url: iconUrl + '#custom-marker',
+      scaledSize: new google.maps.Size(50, 50),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(0, 0)
+    }
   });
+
   mapData.markersLocation.unshift(marker);
   mapData.markerId++;
 }
+
+// function setMarker(marker) {
+//   marker.setMap(map);
+// }
 
 window.initMap = initMap;

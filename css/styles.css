@@ -26,6 +26,10 @@ button {
   padding: 5px 13px;
 }
 
+button:hover {
+  cursor: pointer;
+}
+
 .marker-button {
   position: absolute;
   top: 25px;
@@ -65,7 +69,7 @@ button {
   top: 0;
   bottom: 0;
   background: linear-gradient(rgb(0 0 0 / 60%), rgb(0 0 0 / 60%));
-  animation: fade-out 3s;
+  animation: fade-out 2s;
 }
 
 .marker-overlay h3 {
@@ -259,6 +263,14 @@ button {
   color: #b0b0b0;
 }
 
+img[src$="#custom-marker"] {
+  border-radius: 50%;
+}
+
+.show-more-entries {
+  display: none;
+}
+
 @keyframes fade-out {
   from {
     opacity: 1;
@@ -266,5 +278,42 @@ button {
 
   to {
     opacity: 0;
+  }
+}
+
+@media screen and (max-width: 768px) {
+  header {
+    justify-content: center;
+  }
+
+  main {
+    position: relative;
+  }
+
+  .no-entries h3 {
+    margin-top: 15px;
+  }
+
+  .add-friend {
+    width: 60%;
+  }
+
+  .add-entry {
+    width: 70%;
+  }
+
+  .entries-list {
+    border-radius: 30px 30px 0 0;
+    height: 100px;
+    position: absolute;
+    bottom: 0;
+    z-index: 1;
+    transition: height 0.5s;
+  }
+
+  .show-more-entries {
+    display: flex;
+    justify-content: center;
+    margin-top: 20px;
   }
 }

@@ -14,17 +14,28 @@ var $addEntryImg = document.querySelector('.entry-image img');
 var $fileEntryImg = document.querySelector('#entryImageUpload');
 var $addEntrySubmit = document.querySelector('#entry-form');
 
+var $slideButton = document.querySelector('.show-more-entries i');
+var $entriesList = document.querySelector('.entries-list');
+var $mql = window.matchMedia('(max-width: 768px)');
+
 function handleMarkerOverlay(event) {
   data.marking = true;
+  if (mobile === true) {
+    $entriesList.style.height = 100 + 'px';
+  }
   $markerButton.className = 'marker-button hidden';
   $markerOverlay.className = 'marker-overlay';
   setTimeout(function () {
     $markerOverlay.className = 'marker-overlay hidden';
-  }, 3000);
+  }, 2000);
 }
 
-function openEntry() {
+var clickMapEvent;
+var mapFromMap;
+function openEntry(event, map) {
   $entryOverlay.className = 'entry-overlay';
+  clickMapEvent = event;
+  mapFromMap = map;
 }
 
 function handleFriendImgUpload() {
@@ -32,12 +43,9 @@ function handleFriendImgUpload() {
 }
 
 function updateImage(event) {
-  var getFile = event.target;
-  var reader = new FileReader();
-  reader.onload = function () {
-    getFile.closest('div').querySelector('img').setAttribute('src', reader.result);
-  };
-  reader.readAsDataURL(getFile.files[0]);
+  var getFile = event.target.files[0];
+  var fileToUrl = URL.createObjectURL(getFile);
+  event.target.closest('div').querySelector('img').setAttribute('src', fileToUrl);
 }
 
 function handleFriendSubmit(event) {
@@ -58,11 +66,9 @@ function handleFriendSubmit(event) {
   // update entry pop up friend img and name
   $entryFriendName.textContent = friend.name[0].toUpperCase() + friend.name.slice(1) + '\'s Rec';
 
-  var reader = new FileReader();
-  reader.onload = function () {
-    $entryFriendImage.setAttribute('src', reader.result);
-  };
-  reader.readAsDataURL(friend.photo);
+  var fileToUrl = URL.createObjectURL(friend.photo);
+  $entryFriendImage.setAttribute('src', fileToUrl);
+  makeMarker(clickMapEvent.latLng, mapFromMap, fileToUrl);
 
   form.reset();
 }
@@ -100,6 +106,27 @@ function handleEntrySubmit(event) {
   form.reset();
 }
 
+var slide = false;
+function handleSlide() {
+  if (slide === false) {
+    $entriesList.style.height = 500 + 'px';
+    slide = true;
+  } else if (slide === true) {
+    $entriesList.style.height = 100 + 'px';
+    slide = false;
+  }
+}
+
+var mobile = true;
+function handleScreenChange(event) {
+  if (!event.matches) {
+    $entriesList.style.height = '';
+    mobile = false;
+  } else {
+    mobile = true;
+  }
+}
+
 $markerButton.addEventListener('click', handleMarkerOverlay);
 
 $addFriendImg.addEventListener('click', handleFriendImgUpload);
@@ -109,3 +136,6 @@ $addFriendSubmit.addEventListener('submit', handleFriendSubmit);
 $addEntryImg.addEventListener('click', handleEntryImgUpload);
 $fileEntryImg.addEventListener('change', updateImage);
 $addEntrySubmit.addEventListener('submit', handleEntrySubmit);
+
+$slideButton.addEventListener('click', handleSlide);
+$mql.addEventListener('change', handleScreenChange);

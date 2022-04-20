@@ -6,6 +6,10 @@
   display: flex;
 }
 
+.row-main {
+  display: flex;
+}
+
 .flex-wrap {
   flex-wrap: wrap;
 }
@@ -66,4 +70,24 @@
 
 .full-vh {
   height: 100%;
+}
+
+@media screen and (max-width: 768px) {
+  .col-two-thirds,
+  .col-third {
+    width: 100%;
+  }
+
+  .row-main {
+    display: flex;
+    flex-wrap: wrap;
+  }
+
+  .entries-list {
+    order: 2;
+  }
+
+  .map-box {
+    order: 1;
+  }
 }
