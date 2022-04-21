@@ -82,14 +82,18 @@ function handleEntrySubmit(event) {
 
   var rec = {};
   var form = event.target;
+  rec.position = clickMapEvent;
   rec.name = form.elements.recName.value;
   rec.image = form.elements.entryImage.files[0];
   // rec.tags
   rec.notes = form.elements.notes.value;
-  // rec.friendId = friendId;
   rec.entryId = data.nextEntryId;
 
+  rec.friendName = $entryFriendName.textContent;
+  rec.friendImg = $entryFriendImage.getAttribute('src');
+
   data.nextEntryId++;
+
   data.entries.unshift(rec);
 
   $entryFriendImage.setAttribute('src', 'images/personsample.jpeg');
