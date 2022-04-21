@@ -21,8 +21,3 @@ function handleUnload(event) {
   var dataJSON = JSON.stringify(data);
   localStorage.setItem('rec-data', dataJSON);
 }
-
-// var mapData = {
-//   markersLocation: [],
-//   markerId: 1
-// };
