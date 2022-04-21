@@ -43,6 +43,7 @@ button:hover {
 
 .entries-list {
   background-color: #f9f9f9;
+  height: 92vh;
 }
 
 .map-box {
@@ -261,7 +262,8 @@ button:hover {
 
 ul {
   width: 90%;
-  padding: 50px 0 0;
+  height: 100%;
+  padding: 35px 0 0;
   margin: 0 auto;
 }
 
@@ -270,6 +272,7 @@ ul {
   border: 1px solid #b0b0b0;
   padding: 20px;
   background-color: #f6f6f6;
+  margin-bottom: 30px;
 }
 
 .rec-image {
@@ -291,13 +294,15 @@ ul {
 }
 
 .rec h2 {
-  font-size: 32px;
+  font-size: 28px;
   margin-top: 6px;
+  font-weight: 400;
 }
 
 .rec p {
   font-size: 18px;
-  margin-bottom: 112px;
+  min-height: 125px;
+  overflow: auto;
 }
 
 .rec-friend-img {

@@ -16,6 +16,8 @@ var $addEntrySubmit = document.querySelector('#entry-form');
 
 var $slideButton = document.querySelector('.show-more-entries i');
 var $entriesList = document.querySelector('.entries-list');
+var $recEntries = document.querySelector('#rec-entries');
+
 var $mql = window.matchMedia('(max-width: 768px)');
 
 function handleMarkerOverlay(event) {
@@ -84,7 +86,7 @@ function handleEntrySubmit(event) {
   var form = event.target;
   rec.position = clickMapEvent;
   rec.name = form.elements.recName.value;
-  rec.image = form.elements.entryImage.files[0];
+  rec.image = URL.createObjectURL(form.elements.entryImage.files[0]);
   // rec.tags
   rec.notes = form.elements.notes.value;
   rec.entryId = data.nextEntryId;
@@ -95,6 +97,9 @@ function handleEntrySubmit(event) {
   data.nextEntryId++;
 
   data.entries.unshift(rec);
+
+  var newRec = makeEntry(rec);
+  $recEntries.prepend(newRec);
 
   $entryFriendImage.setAttribute('src', 'images/personsample.jpeg');
   $entryFriendName.textContent = 'Friend\'s Rec';
@@ -129,6 +134,84 @@ function handleScreenChange(event) {
   } else {
     mobile = true;
   }
+}
+
+function makeEntry(rec) {
+  /*
+  <li class="rec row">
+    <div class="col-two-fifth">
+      <div class="rec-image">
+        <img src="images/placeholder-image-square 2.jpg">
+      </div>
+    </div>
+    <div class="rec-info col-three-fifth">
+      <h2 class="font-header">Name of Place</h2>
+      <div class="rec-tags-box">
+
+      </div>
+      <p class="font-body">notes asfdasfasfa</p>
+      <div class="row col-full justify-align-center">
+        <div class="rec-friend-img">
+          <img src="images/personsample.jpeg">
+        </div>
+        <h3 class="font-body">Friend's Rec</h3>
+      </div>
+    </div>
+  </li>
+  */
+
+  var recBox = document.createElement('li');
+  recBox.className = 'rec row';
+
+  ///
+  var recBoxLeft = document.createElement('div');
+  recBoxLeft.className = 'col-two-fifth';
+
+  var recImgBox = document.createElement('div');
+  recImgBox.className = 'rec-image';
+
+  var recImg = document.createElement('img');
+  recImg.setAttribute('src', rec.image);
+
+  recBoxLeft.appendChild(recImgBox);
+  recImgBox.appendChild(recImg);
+
+  ///
+  var recBoxRight = document.createElement('div');
+  recBoxRight.className = 'rec-info col-three-fifth';
+
+  var recName = document.createElement('h2');
+  recName.className = 'font-header';
+  recName.textContent = rec.name;
+
+  var recTags = document.createElement('div');
+  recTags.className = 'rec-tags-box';
+
+  var recNotes = document.createElement('p');
+  recNotes.className = 'font-body';
+  recNotes.textContent = rec.notes;
+
+  var recFriendBar = document.createElement('div');
+  recFriendBar.className = 'row col-full justify-align-center';
+
+  var recFriendImgBox = document.createElement('div');
+  recFriendImgBox.className = 'rec-friend-img';
+
+  var recFriendImg = document.createElement('img');
+  recFriendImg.setAttribute('src', rec.friendImg);
+
+  var recFriendName = document.createElement('h3');
+  recFriendName.className = 'font-body';
+  recFriendName.textContent = rec.friendName;
+
+  recBoxRight.append(recName, recTags, recNotes, recFriendBar);
+  recFriendBar.append(recFriendImgBox, recFriendName);
+  recFriendImgBox.appendChild(recFriendImg);
+
+  ///
+  recBox.append(recBoxLeft, recBoxRight);
+
+  return recBox;
 }
 
 $markerButton.addEventListener('click', handleMarkerOverlay);

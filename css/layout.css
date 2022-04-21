@@ -69,7 +69,7 @@
 }
 
 .overflow-auto {
-  overflow-y: auto;
+  overflow-y: scroll;
 }
 
 .full-vh {
