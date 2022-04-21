@@ -20,9 +20,11 @@ var $addEntrySubmit = document.querySelector('#entry-form');
 var $slideButton = document.querySelector('.show-more-entries i');
 var $entriesList = document.querySelector('.entries-list');
 var $recEntries = document.querySelector('#rec-entries');
+var $noEntries = document.querySelector('.no-entries');
 
 var $mql = window.matchMedia('(max-width: 768px)');
 
+///
 function handleMarkerOverlay(event) {
   data.marking = true;
   if (mobile === true) {
@@ -35,6 +37,7 @@ function handleMarkerOverlay(event) {
   }, 2000);
 }
 
+///
 var clickMapEvent;
 var mapFromMap;
 function openEntry(event, map) {
@@ -43,23 +46,28 @@ function openEntry(event, map) {
   mapFromMap = map;
 }
 
-function handleFriendImgUpload() {
-  $fileFriendImg.click();
+///
+function handleFriendImgUpdate(event) {
+  $addFriendImg.setAttribute('src', event.target.value);
 }
 
-function updateImage(event) {
-  var getFile = event.target.files[0];
-  var fileToUrl = URL.createObjectURL(getFile);
-  event.target.closest('div').querySelector('img').setAttribute('src', fileToUrl);
-}
+///
+// function updateImage(event) {
+//   var getFile = event.target.files[0];
+//   var fileToUrl = URL.createObjectURL(getFile);
+//   event.target.closest('div').querySelector('img').setAttribute('src', fileToUrl);
+// }
 
+///
+var friendEntry;
 function handleFriendSubmit(event) {
   event.preventDefault();
   var form = event.target;
   var friend = {};
-  friend.photo = form.elements.friendImgUrl.files[0];
+  friend.photo = form.elements.friendImgUrl.value; /// edit
   friend.name = form.elements.friend.value;
   friend.friendId = data.nextFriendId;
+  friendEntry = friend;
 
   data.nextFriendId++;
   data.friends.unshift(friend);
@@ -71,17 +79,18 @@ function handleFriendSubmit(event) {
   // update entry pop up friend img and name
   $entryFriendName.textContent = friend.name[0].toUpperCase() + friend.name.slice(1) + '\'s Rec';
 
-  var fileToUrl = URL.createObjectURL(friend.photo);
-  $entryFriendImage.setAttribute('src', fileToUrl);
-  makeMarker(clickMapEvent.latLng, mapFromMap, fileToUrl);
+  $entryFriendImage.setAttribute('src', friend.photo);
+  makeMarker(clickMapEvent.latLng, mapFromMap, friend.photo);
 
   form.reset();
 }
 
-function handleEntryImgUpload() {
-  $fileEntryImg.click();
+///
+function handleEntryImgUpdate(event) {
+  $addEntryImg.setAttribute('src', event.target.value);
 }
 
+///
 function handleEntrySubmit(event) {
   event.preventDefault();
 
@@ -89,13 +98,11 @@ function handleEntrySubmit(event) {
   var form = event.target;
   rec.marker = clickMapEvent;
   rec.name = form.elements.recName.value;
-  rec.image = URL.createObjectURL(form.elements.entryImage.files[0]);
+  rec.image = form.elements.entryImage.value; /// edit
   rec.notes = form.elements.notes.value;
   rec.tags = tags;
+  rec.fromFriend = friendEntry;
   rec.entryId = data.nextEntryId;
-
-  rec.friendName = $entryFriendName.textContent;
-  rec.friendImg = $entryFriendImage.getAttribute('src');
 
   data.nextEntryId++;
 
@@ -112,6 +119,7 @@ function handleEntrySubmit(event) {
   $addFriend.className = 'add-friend';
   $addEntry.className = 'add-entry hidden';
   $markerButton.className = 'marker-button';
+  $noEntries.className = 'no-entries text-align-center hidden';
 
   data.marking = false;
 
@@ -119,6 +127,7 @@ function handleEntrySubmit(event) {
   form.reset();
 }
 
+///
 var tags = [];
 function handleAddTag(event) {
   var tagValue = $inputTag.value;
@@ -135,12 +144,14 @@ function handleAddTag(event) {
   tags.push(tagValue);
 }
 
+///
 function removeChildNodes(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
   }
 }
 
+///
 var slide = false;
 function handleSlide() {
   if (slide === false) {
@@ -152,6 +163,7 @@ function handleSlide() {
   }
 }
 
+///
 var mobile = false;
 function handleScreenChange(event) {
   if (!event.matches) {
@@ -162,6 +174,7 @@ function handleScreenChange(event) {
   }
 }
 
+///
 function makeEntry(rec) {
   /*
   <li class="rec row">
@@ -230,11 +243,11 @@ function makeEntry(rec) {
   recFriendImgBox.className = 'rec-friend-img';
 
   var recFriendImg = document.createElement('img');
-  recFriendImg.setAttribute('src', rec.friendImg);
+  recFriendImg.setAttribute('src', rec.fromFriend.photo);
 
   var recFriendName = document.createElement('h3');
   recFriendName.className = 'font-body';
-  recFriendName.textContent = rec.friendName;
+  recFriendName.textContent = rec.fromFriend.name[0].toUpperCase() + rec.fromFriend.name.slice(1) + '\'s Rec';
 
   recBoxRight.append(recName, recTags, recNotes, recFriendBar);
   recFriendBar.append(recFriendImgBox, recFriendName);
@@ -246,16 +259,34 @@ function makeEntry(rec) {
   return recBox;
 }
 
+///
+function handleLoadEntry(event) {
+  if (data.entries !== []) {
+    for (var i = 0; i < data.entries.length; i++) {
+      var currEntry = data.entries[i];
+      var entry = makeEntry(currEntry);
+      $recEntries.appendChild(entry);
+      makeMarker(currEntry.marker.latLng, map, currEntry.fromFriend.photo);
+    }
+  }
+}
+
+if (data.entries.length !== 0) {
+  $noEntries.className = 'no-entries text-align-center hidden';
+} else {
+  $noEntries.className = 'no-entries text-align-center';
+}
+
 $markerButton.addEventListener('click', handleMarkerOverlay);
 
-$addFriendImg.addEventListener('click', handleFriendImgUpload);
-$fileFriendImg.addEventListener('change', updateImage);
+$fileFriendImg.addEventListener('input', handleFriendImgUpdate);
 $addFriendSubmit.addEventListener('submit', handleFriendSubmit);
 
-$addEntryImg.addEventListener('click', handleEntryImgUpload);
-$fileEntryImg.addEventListener('change', updateImage);
+$fileEntryImg.addEventListener('input', handleEntryImgUpdate);
 $addTagButton.addEventListener('click', handleAddTag);
 $addEntrySubmit.addEventListener('submit', handleEntrySubmit);
 
 $slideButton.addEventListener('click', handleSlide);
 $mql.addEventListener('change', handleScreenChange);
+
+window.addEventListener('DOMContentLoaded', handleLoadEntry);

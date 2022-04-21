@@ -9,6 +9,19 @@ var data = {
   nextFriendId: 1
 };
 
+var previousData = localStorage.getItem('rec-data');
+
+if (previousData !== null) {
+  data = JSON.parse(previousData);
+}
+
+window.addEventListener('beforeunload', handleUnload);
+
+function handleUnload(event) {
+  var dataJSON = JSON.stringify(data);
+  localStorage.setItem('rec-data', dataJSON);
+}
+
 // var mapData = {
 //   markersLocation: [],
 //   markerId: 1
