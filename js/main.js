@@ -12,6 +12,9 @@ var $entryFriendName = document.querySelector('.entry-name-tags h3');
 var $entryFriendImage = document.querySelector('.entry-friend-image img');
 var $addEntryImg = document.querySelector('.entry-image img');
 var $fileEntryImg = document.querySelector('#entryImageUpload');
+var $addTagButton = document.querySelector('.add-tag-button i');
+var $entryTagsList = document.querySelector('.entry-tags-list');
+var $inputTag = document.querySelector('#input-tag');
 var $addEntrySubmit = document.querySelector('#entry-form');
 
 var $slideButton = document.querySelector('.show-more-entries i');
@@ -87,8 +90,8 @@ function handleEntrySubmit(event) {
   rec.marker = clickMapEvent;
   rec.name = form.elements.recName.value;
   rec.image = URL.createObjectURL(form.elements.entryImage.files[0]);
-  // rec.tags
   rec.notes = form.elements.notes.value;
+  rec.tags = tags;
   rec.entryId = data.nextEntryId;
 
   rec.friendName = $entryFriendName.textContent;
@@ -104,7 +107,7 @@ function handleEntrySubmit(event) {
   $entryFriendImage.setAttribute('src', 'images/personsample.jpeg');
   $entryFriendName.textContent = 'Friend\'s Rec';
   $addEntryImg.setAttribute('src', 'images/placeholder-image-square 2.jpg');
-
+  removeChildNodes($entryTagsList);
   $entryOverlay.className = 'entry-overlay hidden';
   $addFriend.className = 'add-friend';
   $addEntry.className = 'add-entry hidden';
@@ -112,7 +115,30 @@ function handleEntrySubmit(event) {
 
   data.marking = false;
 
+  tags = [];
   form.reset();
+}
+
+var tags = [];
+function handleAddTag(event) {
+  var tagValue = $inputTag.value;
+
+  var tag = document.createElement('span');
+  tag.textContent = tagValue;
+  var deleteTag = document.createElement('i');
+  deleteTag.className = 'fa-solid fa-xmark';
+  tag.appendChild(deleteTag);
+
+  $entryTagsList.appendChild(tag);
+
+  $inputTag.value = '';
+  tags.push(tagValue);
+}
+
+function removeChildNodes(parent) {
+  while (parent.firstChild) {
+    parent.removeChild(parent.firstChild);
+  }
 }
 
 var slide = false;
@@ -185,7 +211,13 @@ function makeEntry(rec) {
   recName.textContent = rec.name;
 
   var recTags = document.createElement('div');
-  recTags.className = 'rec-tags-box';
+  recTags.className = 'rec-tags-box font-body row flex-wrap';
+
+  for (var i = 0; i < rec.tags.length; i++) {
+    var tag = document.createElement('span');
+    tag.textContent = rec.tags[i];
+    recTags.appendChild(tag);
+  }
 
   var recNotes = document.createElement('p');
   recNotes.className = 'font-body';
@@ -222,6 +254,7 @@ $addFriendSubmit.addEventListener('submit', handleFriendSubmit);
 
 $addEntryImg.addEventListener('click', handleEntryImgUpload);
 $fileEntryImg.addEventListener('change', updateImage);
+$addTagButton.addEventListener('click', handleAddTag);
 $addEntrySubmit.addEventListener('submit', handleEntrySubmit);
 
 $slideButton.addEventListener('click', handleSlide);

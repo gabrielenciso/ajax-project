@@ -218,7 +218,7 @@ button:hover {
   border: 1px solid #b20600;
 }
 
-/* .add-tag-button {
+.add-tag-button {
   height: 30px;
   width: 30px;
   border-radius: 50%;
@@ -258,7 +258,8 @@ button:hover {
   position: relative;
   top: 1px;
   color: #b0b0b0;
-} */
+  margin-left: 5px;
+}
 
 ul {
   width: 90%;
@@ -296,7 +297,19 @@ ul {
 .rec h2 {
   font-size: 28px;
   margin-top: 6px;
+  margin-bottom: 6px;
   font-weight: 400;
+}
+
+.rec span {
+  background-color: #e5e5e5;
+  color: #ff5f00;
+  font-size: 18px;
+  font-weight: 500;
+  padding: 0 5px;
+  border-radius: 8px;
+  margin-right: 10px;
+  margin-bottom: 5px;
 }
 
 .rec p {

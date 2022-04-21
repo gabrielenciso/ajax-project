@@ -34,8 +34,8 @@ function makeMarker(location, map, iconUrl) {
     }
   });
 
-  mapData.markersLocation.unshift(marker);
-  mapData.markerId++;
+  // mapData.markersLocation.unshift(marker);
+  // mapData.markerId++;
 }
 
 window.initMap = initMap;
