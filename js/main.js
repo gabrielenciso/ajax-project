@@ -84,7 +84,7 @@ function handleEntrySubmit(event) {
 
   var rec = {};
   var form = event.target;
-  rec.position = clickMapEvent;
+  rec.marker = clickMapEvent;
   rec.name = form.elements.recName.value;
   rec.image = URL.createObjectURL(form.elements.entryImage.files[0]);
   // rec.tags

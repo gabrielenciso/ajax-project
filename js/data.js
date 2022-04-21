@@ -9,7 +9,7 @@ var data = {
   nextFriendId: 1
 };
 
-var mapData = {
-  markersLocation: [],
-  markerId: 1
-};
+// var mapData = {
+//   markersLocation: [],
+//   markerId: 1
+// };
