@@ -52,13 +52,6 @@ function handleFriendImgUpdate(event) {
 }
 
 ///
-// function updateImage(event) {
-//   var getFile = event.target.files[0];
-//   var fileToUrl = URL.createObjectURL(getFile);
-//   event.target.closest('div').querySelector('img').setAttribute('src', fileToUrl);
-// }
-
-///
 var friendEntry;
 function handleFriendSubmit(event) {
   event.preventDefault();

@@ -33,9 +33,6 @@ function makeMarker(location, map, iconUrl) {
       anchor: new google.maps.Point(0, 0)
     }
   });
-
-  // mapData.markersLocation.unshift(marker);
-  // mapData.markerId++;
 }
 
 window.initMap = initMap;
