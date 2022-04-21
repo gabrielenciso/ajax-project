@@ -327,6 +327,7 @@ ul {
 
 img[src$="#custom-marker"] {
   border-radius: 50%;
+  object-fit: cover;
 }
 
 .show-more-entries {
