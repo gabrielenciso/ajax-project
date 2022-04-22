@@ -207,6 +207,7 @@ function makeEntry(rec) {
   recImg.setAttribute('src', rec.image);
 
   var recOptionsBox = document.createElement('div');
+  recOptionsBox.addEventListener('click', handleOptions);
   recOptionsBox.className = 'options-highlight';
 
   var recOptions = document.createElement('i');
@@ -217,8 +218,9 @@ function makeEntry(rec) {
   recOptionsPopUp.className = 'options-pop-up font-body hidden';
 
   var editButton = document.createElement('p');
-  editButton.setAttribute = ('id', 'edit');
+  editButton.className = 'edit';
   editButton.textContent = 'edit';
+  editButton.addEventListener('click', handleEdit);
   recOptionsPopUp.appendChild(editButton);
 
   recBoxLeft.append(recImgBox, recOptionsBox, recOptionsPopUp);
@@ -287,14 +289,28 @@ if (data.entries.length !== 0) {
 }
 
 function handleOptions(event) {
+  // console.log(event.target);
+  // if (event.target.tagName === 'UL') {
+  //   return;
+  // }
+
   var dataId = event.target.closest('li').getAttribute('data-entry-id');
-  var selector = 'li[data-entry-id="' + dataId + '"] div.options-pop-up';
-  var optionsList = document.querySelector(selector);
+  var selector = 'li[data-entry-id="' + dataId + '"]';
+  var $optionsList = document.querySelector(selector + ' div.options-pop-up');
+  var $optionsButton = document.querySelector(selector + ' div.options-highlight');
   if (event.target.className === 'options-highlight' || event.target.tagName === 'I') {
-    optionsList.className = 'options-pop-up font-body';
+    $optionsList.className = 'options-pop-up font-body';
+    $optionsButton.className = 'options-highlight options-pressed';
   } else {
-    optionsList.className = 'options-pop-up font-body hidden';
+    $optionsList.className = 'options-pop-up font-body hidden';
+    $optionsButton.className = 'options-highlight';
   }
+
+}
+
+function handleEdit(event) {
+  // var dataId = event.target.closest('li').getAttribute('data-entry-id');
+  console.log('edit?');
 }
 
 $markerButton.addEventListener('click', handleMarkerOverlay);
@@ -305,8 +321,6 @@ $addFriendSubmit.addEventListener('submit', handleFriendSubmit);
 $fileEntryImg.addEventListener('input', handleEntryImgUpdate);
 $addTagButton.addEventListener('click', handleAddTag);
 $addEntrySubmit.addEventListener('submit', handleEntrySubmit);
-
-$recEntries.addEventListener('click', handleOptions);
 
 $slideButton.addEventListener('click', handleSlide);
 $mql.addEventListener('change', handleScreenChange);
