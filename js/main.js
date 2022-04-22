@@ -350,6 +350,9 @@ function handleEdit(event) {
   $entryOverlay.className = 'entry-overlay';
   $addFriend.className = 'add-friend hidden';
   $addEntry.className = 'add-entry';
+  if (mobile === true) {
+    $entriesList.style.height = 100 + 'px';
+  }
 
   var dataId = event.target.closest('li').getAttribute('data-entry-id');
   for (var i = 0; i < data.entries.length; i++) {
