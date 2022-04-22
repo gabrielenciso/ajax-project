@@ -430,6 +430,36 @@ img[src$="#custom-marker"] {
   display: none;
 }
 
+.delete-overlay {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  top: 0;
+  bottom: 0;
+  background: linear-gradient(rgb(0 0 0 / 60%), rgb(0 0 0 / 60%));
+  z-index: 2;
+}
+
+.delete-modal {
+  background-color: #f9f9f9;
+  height: 125px;
+  width: 250px;
+  padding: 20px;
+  border-radius: 10px;
+}
+
+.delete-modal h3 {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+.delete-modal span {
+  font-size: 18px;
+}
+
 @keyframes fade-out {
   from {
     opacity: 1;

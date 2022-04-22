@@ -8,6 +8,7 @@
 
 .row-main {
   display: flex;
+  position: relative;
 }
 
 .flex-wrap {
