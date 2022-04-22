@@ -194,6 +194,7 @@ function makeEntry(rec) {
 
   var recBox = document.createElement('li');
   recBox.className = 'rec row';
+  recBox.setAttribute('data-entry-id', rec.entryId);
 
   ///
   var recBoxLeft = document.createElement('div');
@@ -205,7 +206,22 @@ function makeEntry(rec) {
   var recImg = document.createElement('img');
   recImg.setAttribute('src', rec.image);
 
-  recBoxLeft.appendChild(recImgBox);
+  var recOptionsBox = document.createElement('div');
+  recOptionsBox.className = 'options-highlight';
+
+  var recOptions = document.createElement('i');
+  recOptions.className = 'fa-solid fa-ellipsis fa-2xl';
+  recOptionsBox.appendChild(recOptions);
+
+  var recOptionsPopUp = document.createElement('div');
+  recOptionsPopUp.className = 'options-pop-up font-body hidden';
+
+  var editButton = document.createElement('p');
+  editButton.setAttribute = ('id', 'edit');
+  editButton.textContent = 'edit';
+  recOptionsPopUp.appendChild(editButton);
+
+  recBoxLeft.append(recImgBox, recOptionsBox, recOptionsPopUp);
   recImgBox.appendChild(recImg);
 
   ///
@@ -270,6 +286,17 @@ if (data.entries.length !== 0) {
   $noEntries.className = 'no-entries text-align-center';
 }
 
+function handleOptions(event) {
+  var dataId = event.target.closest('li').getAttribute('data-entry-id');
+  var selector = 'li[data-entry-id="' + dataId + '"] div.options-pop-up';
+  var optionsList = document.querySelector(selector);
+  if (event.target.className === 'options-highlight' || event.target.tagName === 'I') {
+    optionsList.className = 'options-pop-up font-body';
+  } else {
+    optionsList.className = 'options-pop-up font-body hidden';
+  }
+}
+
 $markerButton.addEventListener('click', handleMarkerOverlay);
 
 $fileFriendImg.addEventListener('input', handleFriendImgUpdate);
@@ -278,6 +305,8 @@ $addFriendSubmit.addEventListener('submit', handleFriendSubmit);
 $fileEntryImg.addEventListener('input', handleEntryImgUpdate);
 $addTagButton.addEventListener('click', handleAddTag);
 $addEntrySubmit.addEventListener('submit', handleEntrySubmit);
+
+$recEntries.addEventListener('click', handleOptions);
 
 $slideButton.addEventListener('click', handleSlide);
 $mql.addEventListener('change', handleScreenChange);
