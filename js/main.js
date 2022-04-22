@@ -261,7 +261,12 @@ function makeEntry(rec) {
   editButton.className = 'edit';
   editButton.textContent = 'edit';
   editButton.addEventListener('click', handleEdit);
-  recOptionsPopUp.appendChild(editButton);
+
+  var deleteButton = document.createElement('p');
+  deleteButton.className = 'delete';
+  deleteButton.textContent = 'delete';
+  deleteButton.addEventListener('click', handleDelete);
+  recOptionsPopUp.append(deleteButton, editButton);
 
   recBoxLeft.append(recImgBox, recOptionsBox, recOptionsPopUp);
   recImgBox.appendChild(recImg);
@@ -382,6 +387,10 @@ function handleEdit(event) {
 
     tags.push(data.editing.tags[j]);
   }
+}
+
+function handleDelete(event) {
+  console.log('delete');
 }
 
 $markerButton.addEventListener('click', handleMarkerOverlay);
