@@ -222,7 +222,7 @@ button:hover {
   margin-top: 15px;
 }
 
-.rec-name:focus {
+.entry-tags-list .rec-name:focus {
   outline: none;
   border: 1px solid #b20600;
 }
@@ -286,6 +286,10 @@ button:hover {
   top: 1px;
   color: #b0b0b0;
   margin-left: 5px;
+}
+
+.entry-tags-list span i:hover {
+  cursor: pointer;
 }
 
 ul {
@@ -359,11 +363,11 @@ ul {
 
 .options-pop-up p:hover {
   cursor: pointer;
-  background-color: #c2c2c2;
+  background-color: #dfdfdf;
 }
 
 .options-pressed {
-  background-color: #c2c2c2;
+  background-color: #dfdfdf;
 }
 
 .rec div:nth-child(1) i {
