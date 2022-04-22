@@ -91,7 +91,7 @@ button:hover {
 .add-friend {
   margin: auto;
   background-color: #f9f9f9;
-  height: 31vh;
+  min-height: 31vh;
   width: 50%;
   border-radius: 20px;
   border: 1px solid #b20600;
@@ -159,12 +159,11 @@ button:hover {
 .add-entry {
   margin: 0 auto;
   background-color: #f9f9f9;
-  height: 410px;
+  min-height: 410px;
   width: 60%;
   padding-top: 27px;
   border-radius: 25px;
   border: 1px solid #b20600;
-  overflow: auto;
 }
 
 .add-entry h3 {
