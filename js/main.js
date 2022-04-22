@@ -87,22 +87,54 @@ function handleEntryImgUpdate(event) {
 function handleEntrySubmit(event) {
   event.preventDefault();
 
-  var rec = {};
-  var form = event.target;
-  rec.marker = clickMapEvent;
-  rec.name = form.elements.recName.value;
-  rec.image = form.elements.entryImage.value; /// edit
-  rec.notes = form.elements.notes.value;
-  rec.tags = tags;
-  rec.fromFriend = friendEntry;
-  rec.entryId = data.nextEntryId;
+  if (data.editing === null) {
+    var rec = {};
+    var form = event.target;
+    rec.marker = clickMapEvent;
+    rec.name = form.elements.recName.value;
+    rec.image = form.elements.entryImage.value;
+    rec.notes = form.elements.notes.value;
+    rec.tags = tags;
+    rec.fromFriend = friendEntry;
+    rec.entryId = data.nextEntryId;
 
-  data.nextEntryId++;
+    data.nextEntryId++;
 
-  data.entries.unshift(rec);
+    data.entries.unshift(rec);
 
-  var newRec = makeEntry(rec);
-  $recEntries.prepend(newRec);
+    var newRec = makeEntry(rec);
+    $recEntries.prepend(newRec);
+
+    form.reset();
+  } else {
+    var editedRec = {};
+    var editedForm = event.target;
+    editedRec.name = editedForm.elements.recName.value;
+    editedRec.image = editedForm.elements.entryImage.value;
+    editedRec.notes = editedForm.elements.notes.value;
+    editedRec.tags = tags;
+    editedRec.fromFriend = data.editing.fromFriend;
+    editedRec.entryId = data.editing.entryId;
+    editedRec.marker = data.editing.marker;
+
+    for (var i = 0; i < data.entries.length; i++) {
+      if (data.editing.entryId === data.entries[i].entryId) {
+        data.entries.splice(i, 1, editedRec);
+      }
+    }
+    var $entriesListArray = document.querySelectorAll('li');
+
+    for (var j = 0; j < $entriesListArray.length; j++) {
+      var currentDataEntryId = $entriesListArray[j].getAttribute('data-entry-id');
+      if (data.editing.entryId.toString() === currentDataEntryId) {
+        var $editedEntry = makeEntry(editedRec);
+        $recEntries.replaceChild($editedEntry, $entriesListArray[j]);
+        break;
+      }
+    }
+    editedForm.reset();
+    data.editing = null;
+  }
 
   $entryFriendImage.setAttribute('src', 'images/personsample.jpeg');
   $entryFriendName.textContent = 'Friend\'s Rec';
@@ -117,7 +149,6 @@ function handleEntrySubmit(event) {
   data.marking = false;
 
   tags = [];
-  form.reset();
 }
 
 ///
@@ -129,12 +160,21 @@ function handleAddTag(event) {
   tag.textContent = tagValue;
   var deleteTag = document.createElement('i');
   deleteTag.className = 'fa-solid fa-xmark';
+  deleteTag.addEventListener('click', handleDeleteTag);
   tag.appendChild(deleteTag);
 
   $entryTagsList.appendChild(tag);
 
   $inputTag.value = '';
   tags.push(tagValue);
+}
+
+///
+function handleDeleteTag(event) {
+  var tag = event.target.closest('span');
+  var index = tags.indexOf(tag.textContent);
+  tags.splice(index, 1);
+  tag.remove();
 }
 
 ///
@@ -194,6 +234,8 @@ function makeEntry(rec) {
 
   var recBox = document.createElement('li');
   recBox.className = 'rec row';
+  recBox.setAttribute('data-entry-id', rec.entryId);
+  recBox.addEventListener('click', handleEntryActions);
 
   ///
   var recBoxLeft = document.createElement('div');
@@ -205,7 +247,23 @@ function makeEntry(rec) {
   var recImg = document.createElement('img');
   recImg.setAttribute('src', rec.image);
 
-  recBoxLeft.appendChild(recImgBox);
+  var recOptionsBox = document.createElement('div');
+  recOptionsBox.className = 'options-highlight';
+
+  var recOptions = document.createElement('i');
+  recOptions.className = 'fa-solid fa-ellipsis fa-2xl';
+  recOptionsBox.appendChild(recOptions);
+
+  var recOptionsPopUp = document.createElement('div');
+  recOptionsPopUp.className = 'options-pop-up font-body hidden';
+
+  var editButton = document.createElement('p');
+  editButton.className = 'edit';
+  editButton.textContent = 'edit';
+  editButton.addEventListener('click', handleEdit);
+  recOptionsPopUp.appendChild(editButton);
+
+  recBoxLeft.append(recImgBox, recOptionsBox, recOptionsPopUp);
   recImgBox.appendChild(recImg);
 
   ///
@@ -268,6 +326,62 @@ if (data.entries.length !== 0) {
   $noEntries.className = 'no-entries text-align-center hidden';
 } else {
   $noEntries.className = 'no-entries text-align-center';
+}
+
+///
+function handleEntryActions(event) {
+
+  var dataId = event.target.closest('li').getAttribute('data-entry-id');
+  var selector = 'li[data-entry-id="' + dataId + '"]';
+  var $optionsList = document.querySelector(selector + ' div.options-pop-up');
+  var $optionsButton = document.querySelector(selector + ' div.options-highlight');
+  if (event.target.className === 'options-highlight' || event.target.tagName === 'I') {
+    $optionsList.className = 'options-pop-up font-body';
+    $optionsButton.className = 'options-highlight options-pressed';
+  } else {
+    $optionsList.className = 'options-pop-up font-body hidden';
+    $optionsButton.className = 'options-highlight';
+  }
+}
+
+///
+function handleEdit(event) {
+  $markerButton.className = 'marker-button hidden';
+  $entryOverlay.className = 'entry-overlay';
+  $addFriend.className = 'add-friend hidden';
+  $addEntry.className = 'add-entry';
+  if (mobile === true) {
+    $entriesList.style.height = 100 + 'px';
+  }
+
+  var dataId = event.target.closest('li').getAttribute('data-entry-id');
+  for (var i = 0; i < data.entries.length; i++) {
+    var dataEntryId = data.entries[i].entryId;
+    if (dataId === dataEntryId.toString()) {
+      data.editing = data.entries[i];
+      break;
+    }
+  }
+
+  $addEntrySubmit.elements.recName.value = data.editing.name;
+  $addEntrySubmit.elements.entryImage.value = data.editing.image;
+  $addEntrySubmit.elements.notes.value = data.editing.notes;
+  $addEntryImg.setAttribute('src', data.editing.image);
+  $entryFriendImage.setAttribute('src', data.editing.fromFriend.photo);
+  $entryFriendName.textContent = data.editing.fromFriend.name[0].toUpperCase() + data.editing.fromFriend.name.slice(1) + '\'s Rec';
+
+  // tags
+  for (var j = 0; j < data.editing.tags.length; j++) {
+    var tag = document.createElement('span');
+    tag.textContent = data.editing.tags[j];
+    var deleteTag = document.createElement('i');
+    deleteTag.className = 'fa-solid fa-xmark';
+    deleteTag.addEventListener('click', handleDeleteTag);
+    tag.appendChild(deleteTag);
+    $entryTagsList.appendChild(tag);
+
+    tags.push(data.editing.tags[j]);
+  }
 }
 
 $markerButton.addEventListener('click', handleMarkerOverlay);
