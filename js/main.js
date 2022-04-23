@@ -22,6 +22,9 @@ var $entriesList = document.querySelector('.entries-list');
 var $recEntries = document.querySelector('#rec-entries');
 var $noEntries = document.querySelector('.no-entries');
 
+var $deleteOverlay = document.querySelector('.delete-overlay');
+var $deleteYesNo = document.querySelector('.delete-options');
+
 var $mql = window.matchMedia('(max-width: 768px)');
 
 ///
@@ -57,7 +60,7 @@ function handleFriendSubmit(event) {
   event.preventDefault();
   var form = event.target;
   var friend = {};
-  friend.photo = form.elements.friendImgUrl.value; /// edit
+  friend.photo = form.elements.friendImgUrl.value;
   friend.name = form.elements.friend.value;
   friend.friendId = data.nextFriendId;
   friendEntry = friend;
@@ -73,7 +76,6 @@ function handleFriendSubmit(event) {
   $entryFriendName.textContent = friend.name[0].toUpperCase() + friend.name.slice(1) + '\'s Rec';
 
   $entryFriendImage.setAttribute('src', friend.photo);
-  makeMarker(clickMapEvent.latLng, mapFromMap, friend.photo);
 
   form.reset();
 }
@@ -100,6 +102,7 @@ function handleEntrySubmit(event) {
 
     data.nextEntryId++;
 
+    makeMarker(clickMapEvent.latLng, mapFromMap, rec.fromFriend.photo, rec.entryId);
     data.entries.unshift(rec);
 
     var newRec = makeEntry(rec);
@@ -261,7 +264,12 @@ function makeEntry(rec) {
   editButton.className = 'edit';
   editButton.textContent = 'edit';
   editButton.addEventListener('click', handleEdit);
-  recOptionsPopUp.appendChild(editButton);
+
+  var deleteButton = document.createElement('p');
+  deleteButton.className = 'delete';
+  deleteButton.textContent = 'delete';
+  deleteButton.addEventListener('click', handleDeleteOption);
+  recOptionsPopUp.append(deleteButton, editButton);
 
   recBoxLeft.append(recImgBox, recOptionsBox, recOptionsPopUp);
   recImgBox.appendChild(recImg);
@@ -317,7 +325,7 @@ function handleLoadEntry(event) {
       var currEntry = data.entries[i];
       var entry = makeEntry(currEntry);
       $recEntries.appendChild(entry);
-      makeMarker(currEntry.marker.latLng, map, currEntry.fromFriend.photo);
+      makeMarker(currEntry.marker.latLng, map, currEntry.fromFriend.photo, currEntry.entryId);
     }
   }
 }
@@ -384,6 +392,53 @@ function handleEdit(event) {
   }
 }
 
+var deleteId;
+function handleDeleteOption(event) {
+  $deleteOverlay.className = 'delete-overlay row';
+  deleteId = event.target.closest('li').getAttribute('data-entry-id');
+}
+
+function handleDeleteYesNo(event) {
+  if (event.target.tagName !== 'SPAN') {
+    return;
+  }
+
+  if (event.target.id === 'delete-yes') {
+    deleteEntry(deleteId);
+  } else if (event.target.id === 'delete-no') {
+    $deleteOverlay.className = 'delete-overlay hidden';
+  }
+}
+
+function deleteEntry(dataId) {
+
+  /// remove from data
+  for (var i = 0; i < data.entries.length; i++) {
+    if (dataId === data.entries[i].entryId.toString()) {
+      deleteMarker(dataId);
+      data.entries.splice(i, 1);
+      break;
+    }
+  }
+
+  /// remove from DOM
+  var $entriesListArray = document.querySelectorAll('li');
+  for (var j = 0; j < $entriesListArray.length; j++) {
+    var currentDataEntryId = $entriesListArray[j].getAttribute('data-entry-id');
+    if (dataId === currentDataEntryId) {
+      $entriesListArray[j].remove();
+      break;
+    }
+  }
+
+  if (data.entries.length === 0) {
+    $noEntries.className = 'no-entries text-align-center';
+  }
+
+  deleteId = null;
+  $deleteOverlay.className = 'delete-overlay hidden';
+}
+
 $markerButton.addEventListener('click', handleMarkerOverlay);
 
 $fileFriendImg.addEventListener('input', handleFriendImgUpdate);
@@ -395,5 +450,7 @@ $addEntrySubmit.addEventListener('submit', handleEntrySubmit);
 
 $slideButton.addEventListener('click', handleSlide);
 $mql.addEventListener('change', handleScreenChange);
+
+$deleteYesNo.addEventListener('click', handleDeleteYesNo);
 
 window.addEventListener('DOMContentLoaded', handleLoadEntry);

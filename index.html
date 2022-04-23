@@ -21,6 +21,15 @@
   </header>
   <hr>
   <main class="row-main">
+    <div class="delete-overlay hidden">
+      <div class="delete-modal">
+        <h3 class="font-header text-align-center">Delete this Rec?</h3>
+        <div class="delete-options row space-between">
+          <span id="delete-yes" class="font-body">yes</span>
+          <span id="delete-no" class="font-body">no</span>
+        </div>
+      </div>
+    </div>
     <div class="entries-list col-two-fifth overflow-auto">
       <div class="show-more-entries">
         <i class="fa-solid fa-minus fa-2xl"></i>
@@ -61,7 +70,6 @@
             <div class="form-container">
               <form class="row flex-wrap" id="entry-form">
                 <div class="entry-image col-half">
-                  <!-- <input type="file" name="entryImage" id="entryImageUpload" class="hidden"> -->
                   <img src="images/placeholder-image-square 2.jpg">
                 </div>
                 <div class="col-half entry-name-tags">
@@ -98,8 +106,9 @@
     </div>
   </main>
   <script src="js/data.js"></script>
-  <script src="js/main.js"></script>
   <script src="js/map.js"></script>
+  <script src="js/main.js"></script>
+  <!-- <script src="js/map.js"></script> -->
   <script
     src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfUgDMB_ru5W6BPuTGY2wWQAf8CezIG2Q&map_ids=2d5a995064aaf095&callback=initMap"
     async defer>
