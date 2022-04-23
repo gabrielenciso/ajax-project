@@ -431,7 +431,6 @@ img[src$="#custom-marker"] {
 }
 
 .delete-overlay {
-  display: flex;
   justify-content: center;
   align-items: center;
   position: absolute;
@@ -458,6 +457,14 @@ img[src$="#custom-marker"] {
 
 .delete-modal span {
   font-size: 18px;
+  padding: 0 5px;
+  border-radius: 5px;
+  color: #b20600;
+}
+
+.delete-modal span:hover {
+  background-color: #e5e5e5;
+  cursor: pointer;
 }
 
 @keyframes fade-out {

@@ -12,6 +12,7 @@ function initMap() {
   map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
   google.maps.event.addListener(map, 'click', handleClickMap);
+
 }
 
 function handleClickMap(event) {
@@ -22,7 +23,8 @@ function handleClickMap(event) {
   openEntry(event, map);
 }
 
-function makeMarker(location, map, iconUrl) {
+var markers = [];
+function makeMarker(location, map, iconUrl, entryId) {
   var marker = new google.maps.Marker({
     position: location,
     map: map,
@@ -33,6 +35,21 @@ function makeMarker(location, map, iconUrl) {
       anchor: new google.maps.Point(0, 0)
     }
   });
+  marker.setMap(map);
+
+  var markerWithId = {
+    marker: marker,
+    entryId: entryId
+  };
+  markers.push(markerWithId);
+}
+
+function deleteMarker(dataId) {
+  for (var i = 0; i < markers.length; i++) {
+    if (dataId === markers[i].entryId.toString()) {
+      markers[i].marker.setMap(null);
+    }
+  }
 }
 
 window.initMap = initMap;
