@@ -103,6 +103,7 @@ function handleEntrySubmit(event) {
     data.nextEntryId++;
 
     makeMarker(clickMapEvent.latLng, mapFromMap, rec.fromFriend.photo, rec.entryId);
+    // makeMarker(clickMapEvent.latLng, mapFromMap, rec);
     data.entries.unshift(rec);
 
     var newRec = makeEntry(rec);
