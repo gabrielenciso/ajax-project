@@ -257,6 +257,10 @@ button:hover {
   filter: drop-shadow(-1px 2px 2px #c2c2c2);
 }
 
+.add-tag-button:hover {
+  cursor: pointer;
+}
+
 .input-tag-name {
   border: none;
   background-color: #f9f9f9;
@@ -510,6 +514,11 @@ img[src$="#custom-marker"] {
   .show-more-entries {
     display: flex;
     justify-content: center;
-    margin-top: 20px;
+    align-items: center;
+    height: 40px;
+    position: sticky;
+    top: 0;
+    z-index: 2;
+    background-color: #f9f9f9;
   }
 }

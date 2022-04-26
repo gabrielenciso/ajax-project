@@ -103,6 +103,7 @@ function handleEntrySubmit(event) {
     data.nextEntryId++;
 
     makeMarker(clickMapEvent.latLng, mapFromMap, rec.fromFriend.photo, rec.entryId);
+    // makeMarker(clickMapEvent.latLng, mapFromMap, rec);
     data.entries.unshift(rec);
 
     var newRec = makeEntry(rec);
@@ -349,7 +350,10 @@ function handleEntryActions(event) {
   } else {
     $optionsList.className = 'options-pop-up font-body hidden';
     $optionsButton.className = 'options-highlight';
+
+    focusMarker(dataId);
   }
+
 }
 
 ///
@@ -437,6 +441,11 @@ function deleteEntry(dataId) {
 
   deleteId = null;
   $deleteOverlay.className = 'delete-overlay hidden';
+}
+
+function focusEntry(dataId) {
+  var targetRec = document.querySelector('li[data-entry-id="' + dataId + '"]');
+  targetRec.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 $markerButton.addEventListener('click', handleMarkerOverlay);
