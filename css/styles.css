@@ -398,11 +398,17 @@ ul {
   overflow: auto;
 }
 
+.rec-info h3 {
+  margin: auto 0.5rem;
+}
+
 .rec-friend-img {
   position: relative;
   height: 60px;
   width: 60px;
-  margin-right: 1.25rem;
+  margin: 0 0.5rem;
+
+  /* margin-right: 1.25rem; */
 }
 
 .rec-friend-img img {
@@ -415,7 +421,8 @@ ul {
 
 .rec-info div:nth-child(4) {
   border-top: 1px solid #b20600;
-  padding: 0.3rem 1.875rem;
+  padding: 0.3rem 0;
+  flex-wrap: wrap;
 }
 
 img[src$="#custom-marker"] {
