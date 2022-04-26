@@ -27,7 +27,6 @@ var $deleteYesNo = document.querySelector('.delete-options');
 
 var $mql = window.matchMedia('(max-width: 768px)');
 
-///
 function handleMarkerOverlay(event) {
   data.marking = true;
   if (mobile === true) {
@@ -40,7 +39,6 @@ function handleMarkerOverlay(event) {
   }, 2000);
 }
 
-///
 var clickMapEvent;
 var mapFromMap;
 function openEntry(event, map) {
@@ -49,12 +47,10 @@ function openEntry(event, map) {
   mapFromMap = map;
 }
 
-///
 function handleFriendImgUpdate(event) {
   $addFriendImg.setAttribute('src', event.target.value);
 }
 
-///
 var friendEntry;
 function handleFriendSubmit(event) {
   event.preventDefault();
@@ -80,12 +76,10 @@ function handleFriendSubmit(event) {
   form.reset();
 }
 
-///
 function handleEntryImgUpdate(event) {
   $addEntryImg.setAttribute('src', event.target.value);
 }
 
-///
 function handleEntrySubmit(event) {
   event.preventDefault();
 
@@ -155,7 +149,6 @@ function handleEntrySubmit(event) {
   tags = [];
 }
 
-///
 var tags = [];
 function handleAddTag(event) {
   var tagValue = $inputTag.value;
@@ -173,7 +166,6 @@ function handleAddTag(event) {
   tags.push(tagValue);
 }
 
-///
 function handleDeleteTag(event) {
   var tag = event.target.closest('span');
   var index = tags.indexOf(tag.textContent);
@@ -181,14 +173,12 @@ function handleDeleteTag(event) {
   tag.remove();
 }
 
-///
 function removeChildNodes(parent) {
   while (parent.firstChild) {
     parent.removeChild(parent.firstChild);
   }
 }
 
-///
 var slide = false;
 function handleSlide() {
   if (slide === false) {
@@ -200,7 +190,6 @@ function handleSlide() {
   }
 }
 
-///
 var mobile = false;
 function handleScreenChange(event) {
   if (!event.matches) {
@@ -211,7 +200,6 @@ function handleScreenChange(event) {
   }
 }
 
-///
 function makeEntry(rec) {
   /*
   <li class="rec row">
@@ -319,7 +307,6 @@ function makeEntry(rec) {
   return recBox;
 }
 
-///
 function handleLoadEntry(event) {
   if (data.entries !== []) {
     for (var i = 0; i < data.entries.length; i++) {
@@ -337,7 +324,6 @@ if (data.entries.length !== 0) {
   $noEntries.className = 'no-entries text-align-center';
 }
 
-///
 function handleEntryActions(event) {
 
   var dataId = event.target.closest('li').getAttribute('data-entry-id');
@@ -356,7 +342,6 @@ function handleEntryActions(event) {
 
 }
 
-///
 function handleEdit(event) {
   $markerButton.className = 'marker-button hidden';
   $entryOverlay.className = 'entry-overlay';
