@@ -11,6 +11,13 @@ function initMap() {
 
   map = new google.maps.Map(document.getElementById('map'), mapOptions);
 
+  if (map) {
+    setTimeout(function () {
+      var loading = document.querySelector('.lds-default');
+      loading.className = '.lds-default hidden';
+    }, 1000);
+  }
+
   google.maps.event.addListener(map, 'click', handleClickMap);
 
 }
