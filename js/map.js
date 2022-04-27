@@ -14,7 +14,7 @@ function initMap() {
   if (map) {
     setTimeout(function () {
       var loading = document.querySelector('.lds-default');
-      loading.className = '.lds-default hidden';
+      loading.className = 'lds-default hidden';
     }, 1000);
   }
 
