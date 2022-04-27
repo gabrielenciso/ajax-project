@@ -30,7 +30,7 @@ var $mql = window.matchMedia('(max-width: 768px)');
 function handleMarkerOverlay(event) {
   data.marking = true;
   if (mobile === true) {
-    $entriesList.style.height = 100 + 'px';
+    $entriesList.style.height = 150 + 'px';
   }
   $markerButton.className = 'marker-button hidden';
   $markerOverlay.className = 'marker-overlay';
@@ -185,7 +185,7 @@ function handleSlide() {
     $entriesList.style.height = 500 + 'px';
     slide = true;
   } else if (slide === true) {
-    $entriesList.style.height = 100 + 'px';
+    $entriesList.style.height = 150 + 'px';
     slide = false;
   }
 }
@@ -348,7 +348,7 @@ function handleEdit(event) {
   $addFriend.className = 'add-friend hidden';
   $addEntry.className = 'add-entry';
   if (mobile === true) {
-    $entriesList.style.height = 100 + 'px';
+    $entriesList.style.height = 150 + 'px';
   }
 
   var dataId = event.target.closest('li').getAttribute('data-entry-id');
