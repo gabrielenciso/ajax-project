@@ -71,21 +71,47 @@
       </div>
       <div class="entry-overlay hidden">
         <div class="row justify-align-center full-vh">
-          <div class="add-friend">
+          <div class="select-friend">
+            <div class="form-container">
+              <form id="select-friend-form">
+                <h3 class="text-align-center font-header">Select a Friend</h3>
+                <div class="row space-between align-items-center">
+                  <div class="select-friend-image col-fifth">
+                    <img src="images/personsample.jpeg">
+                  </div>
+                  <div class="select-or-add">
+                    <select name="selectFriend" id="friend-drop-down">
+                      <option value="0" disabled selected>select a friend</option>
+                    </select>
+                    <div class="row align-items-center">
+                      <div class="add-friend-button row justify-align-center">
+                        <i class="fa-solid fa-circle-plus fa-2xl"></i>
+                      </div>
+                      <p>add a friend</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-button">
+                  <button type="submit">next</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="add-friend hidden">
             <div class="form-container">
               <form id="friend-form">
-                <h3 class="text-align-center font-header">Recommendation from...</h3>
+                <h3 class="text-align-center font-header">Add a Friend</h3>
                 <div class="row space-between align-items-center">
                   <div class="input-friend-image col-fifth">
                     <img src="images/personsample.jpeg">
                   </div>
                   <div class="friend-inputs">
-                    <input name="friend" type="text" placeholder="name...">
+                    <input name="friend" type="text" placeholder="name..." required>
                     <input name="friendImgUrl" type="text" id="friendImgUpload" placeholder="img url">
                   </div>
                 </div>
                 <div class="form-button">
-                  <button type="submit">next</button>
+                  <button type="submit">add</button>
                 </div>
               </form>
             </div>

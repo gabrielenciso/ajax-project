@@ -88,7 +88,8 @@ button:hover {
   background: linear-gradient(rgb(0 0 0 / 60%), rgb(0 0 0 / 60%));
 }
 
-.add-friend {
+.add-friend,
+.select-friend {
   margin: auto;
   background-color: #f9f9f9;
   width: 50%;
@@ -96,24 +97,44 @@ button:hover {
   border: 1px solid #b20600;
 }
 
-.add-friend h3 {
+.add-friend h3,
+.select-friend h3 {
   font-size: 1.5rem;
   font-weight: 500;
   color: #b20600;
 }
 
-.input-friend-image {
+.input-friend-image,
+.select-friend-image {
   border-radius: 50%;
   position: relative;
   height: 100px;
   width: 100px;
 }
 
-.input-friend-image img {
+.input-friend-image img,
+.select-friend-image img {
   object-fit: cover;
   border-radius: 50%;
   width: 100%;
   height: 100%;
+}
+
+.select-friend select {
+  width: 100%;
+  border: 1px solid #b0b0b0;
+  border-radius: 5px;
+  font-size: 1rem;
+  padding: 0.5rem;
+}
+
+.select-or-add {
+  width: 70%;
+}
+
+.select-or-add p {
+  padding-left: 0.5rem;
+  color: #b0b0b0;
 }
 
 .add-friend input:nth-child(1) {
@@ -236,13 +257,15 @@ button:hover {
   border: 1px solid #b20600;
 }
 
-.add-tag-button {
+.add-tag-button,
+.add-friend-button {
   height: 30px;
   width: 30px;
   border-radius: 50%;
 }
 
-.add-tag-button i {
+.add-tag-button i,
+.add-friend-button i {
   color: #f9f9f9;
   border-radius: 50%;
   width: 100%;
@@ -485,6 +508,10 @@ img[src$="#custom-marker"] {
   }
 
   .add-friend {
+    width: 80%;
+  }
+
+  .select-friend {
     width: 80%;
   }
 
