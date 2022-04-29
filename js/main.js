@@ -243,10 +243,8 @@ function handleScreenChange(event) {
   if (!event.matches) {
     $entriesList.style.height = '';
     mobile = false;
-    console.log(event);
   } else {
     mobile = true;
-    console.log(event);
   }
 }
 
