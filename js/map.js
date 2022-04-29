@@ -9,7 +9,7 @@ function initMap() {
     disableDefaultUI: true
   };
 
-  map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  map = new window.google.maps.Map(document.getElementById('map'), mapOptions);
 
   if (map) {
     setTimeout(function () {
@@ -18,7 +18,7 @@ function initMap() {
     }, 1000);
   }
 
-  google.maps.event.addListener(map, 'click', handleClickMap);
+  window.google.maps.event.addListener(map, 'click', handleClickMap);
 
 }
 
@@ -32,7 +32,7 @@ function handleClickMap(event) {
 
 var markers = [];
 function makeMarker(location, map, iconUrl, entryId) {
-  var marker = new google.maps.Marker({
+  var marker = new window.google.maps.Marker({
     position: location,
     map: map,
     icon: {
@@ -42,7 +42,7 @@ function makeMarker(location, map, iconUrl, entryId) {
       anchor: new google.maps.Point(0, 0)
     }
   });
-  google.maps.event.addListener(marker, 'click', clickMarker);
+  window.google.maps.event.addListener(marker, 'click', clickMarker);
   marker.setMap(map);
 
   var markerWithId = {

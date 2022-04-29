@@ -4,15 +4,14 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta property="og:title" content="Recs - Mark Recommendations From Friends">
-  <meta property="og:description" content="A CRUD web app utilizing google maps api to create a marker and log its details">
-  <!-- <meta property="og:image" content="gabrielenciso.github.io/marker-recs/images/pexels-cottonbro-4543006.jpg"> -->
-  <meta property="og:image" content="https://images.pexels.com/photos/4543006/pexels-photo-4543006.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
+  <meta property="og:description" content="A CRUD web app utilizing google maps api to create a marker from a friend's recommendation">
+  <meta property="og:image" content="https://images.pexels.com/photos/68704/pexels-photo-68704.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2">
   <meta property="og:url" content="gabrielenciso.github.io/marker-recs/">
   <title>Recs - Mark Recommendations From Friends</title>
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?">
-  <link rel="manifest" href="/site.webmanifest?">
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" href="/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -70,21 +69,47 @@
       </div>
       <div class="entry-overlay hidden">
         <div class="row justify-align-center full-vh">
-          <div class="add-friend">
+          <div class="select-friend">
+            <div class="form-container">
+              <form id="select-friend-form">
+                <h3 class="text-align-center font-header">Select a Friend</h3>
+                <div class="row space-between align-items-center">
+                  <div class="select-friend-image col-fifth">
+                    <img src="images/personsample.jpeg">
+                  </div>
+                  <div class="select-or-add">
+                    <select name="selectFriend" id="friend-drop-down">
+                      <option value="0" disabled selected>select a friend</option>
+                    </select>
+                    <div class="row align-items-center">
+                      <div class="add-friend-button row justify-align-center">
+                        <i class="fa-solid fa-circle-plus fa-2xl"></i>
+                      </div>
+                      <p>add a friend</p>
+                    </div>
+                  </div>
+                </div>
+                <div class="form-button">
+                  <button type="submit">next</button>
+                </div>
+              </form>
+            </div>
+          </div>
+          <div class="add-friend hidden">
             <div class="form-container">
               <form id="friend-form">
-                <h3 class="text-align-center font-header">Recommendation from...</h3>
+                <h3 class="text-align-center font-header">Add a Friend</h3>
                 <div class="row space-between align-items-center">
                   <div class="input-friend-image col-fifth">
                     <img src="images/personsample.jpeg">
                   </div>
                   <div class="friend-inputs">
-                    <input name="friend" type="text" placeholder="name...">
+                    <input name="friend" type="text" placeholder="name..." required>
                     <input name="friendImgUrl" type="text" id="friendImgUpload" placeholder="img url">
                   </div>
                 </div>
                 <div class="form-button">
-                  <button type="submit">next</button>
+                  <button type="submit">add</button>
                 </div>
               </form>
             </div>

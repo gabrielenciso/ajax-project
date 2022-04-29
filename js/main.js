@@ -2,6 +2,13 @@ var $markerButton = document.querySelector('.marker-button');
 var $markerOverlay = document.querySelector('.marker-overlay');
 
 var $entryOverlay = document.querySelector('.entry-overlay');
+
+var $selectFriend = document.querySelector('.select-friend');
+var $selectFriendImg = document.querySelector('.select-friend-image img');
+var $selectFriendSelect = document.querySelector('.select-friend select');
+var $selectFriendSubmit = document.querySelector('#select-friend-form');
+var $selectFriendAddNew = document.querySelector('.add-friend-button');
+
 var $addFriend = document.querySelector('.add-friend');
 var $addFriendImg = document.querySelector('.input-friend-image img');
 var $fileFriendImg = document.querySelector('#friendImgUpload');
@@ -47,11 +54,46 @@ function openEntry(event, map) {
   mapFromMap = map;
 }
 
+var friendEntry;
+function handleSelectFriendSubmit(event) {
+  event.preventDefault();
+
+  // update entry pop up friend img and name
+  var selectedId = event.target.elements.selectFriend.value;
+  for (var i = 0; i < data.friends.length; i++) {
+    var currentFriend = data.friends[i];
+    if (selectedId === currentFriend.friendId.toString()) {
+      $entryFriendName.textContent = currentFriend.name[0].toUpperCase() + currentFriend.name.slice(1) + '\'s Rec';
+      $entryFriendImage.setAttribute('src', currentFriend.photo);
+      friendEntry = currentFriend;
+    }
+  }
+
+  $selectFriendImg.setAttribute('src', 'images/personsample.jpeg');
+  $selectFriendSelect.value = '0';
+  $selectFriend.className = 'select-friend hidden';
+  $addEntry.className = 'add-entry';
+}
+
+function handleOptionChange(event) {
+  var friendId = event.target.value;
+  for (var i = 0; i < data.friends.length; i++) {
+    var currentFriend = data.friends[i];
+    if (friendId === currentFriend.friendId.toString()) {
+      $selectFriendImg.setAttribute('src', currentFriend.photo);
+    }
+  }
+}
+
+function handleSelectAddAFriend(event) {
+  $selectFriend.className = 'select-friend hidden';
+  $addFriend.className = 'add-friend';
+}
+
 function handleFriendImgUpdate(event) {
   $addFriendImg.setAttribute('src', event.target.value);
 }
 
-var friendEntry;
 function handleFriendSubmit(event) {
   event.preventDefault();
   var form = event.target;
@@ -59,21 +101,26 @@ function handleFriendSubmit(event) {
   friend.photo = form.elements.friendImgUrl.value;
   friend.name = form.elements.friend.value;
   friend.friendId = data.nextFriendId;
-  friendEntry = friend;
 
   data.nextFriendId++;
   data.friends.unshift(friend);
+  addFriendSelectOption(friend);
 
   $addFriend.className = 'add-friend hidden';
-  $addEntry.className = 'add-entry';
+  $selectFriend.className = 'select-friend';
   $addFriendImg.setAttribute('src', 'images/personsample.jpeg');
 
-  // update entry pop up friend img and name
-  $entryFriendName.textContent = friend.name[0].toUpperCase() + friend.name.slice(1) + '\'s Rec';
-
-  $entryFriendImage.setAttribute('src', friend.photo);
+  $selectFriendImg.setAttribute('src', friend.photo);
+  $selectFriendSelect.value = friend.friendId.toString();
 
   form.reset();
+}
+
+function addFriendSelectOption(newFriend) {
+  var $newFriendOption = document.createElement('option');
+  $newFriendOption.setAttribute('value', newFriend.friendId);
+  $newFriendOption.textContent = newFriend.name;
+  $selectFriendSelect.appendChild($newFriendOption);
 }
 
 function handleEntryImgUpdate(event) {
@@ -97,7 +144,7 @@ function handleEntrySubmit(event) {
     data.nextEntryId++;
 
     makeMarker(clickMapEvent.latLng, mapFromMap, rec.fromFriend.photo, rec.entryId);
-    // makeMarker(clickMapEvent.latLng, mapFromMap, rec);
+
     data.entries.unshift(rec);
 
     var newRec = makeEntry(rec);
@@ -139,8 +186,9 @@ function handleEntrySubmit(event) {
   $addEntryImg.setAttribute('src', 'images/placeholder-image-square 2.jpg');
   removeChildNodes($entryTagsList);
   $entryOverlay.className = 'entry-overlay hidden';
-  $addFriend.className = 'add-friend';
+  $addFriend.className = 'add-friend hidden';
   $addEntry.className = 'add-entry hidden';
+  $selectFriend.className = 'select-friend';
   $markerButton.className = 'marker-button';
   $noEntries.className = 'no-entries text-align-center hidden';
 
@@ -316,6 +364,13 @@ function handleLoadEntry(event) {
       makeMarker(currEntry.marker.latLng, map, currEntry.fromFriend.photo, currEntry.entryId);
     }
   }
+
+  if (data.friends !== []) {
+    for (var j = 0; j < data.friends.length; j++) {
+      var currentFriend = data.friends[j];
+      addFriendSelectOption(currentFriend);
+    }
+  }
 }
 
 if (data.entries.length !== 0) {
@@ -429,11 +484,18 @@ function deleteEntry(dataId) {
 }
 
 function focusEntry(dataId) {
+  if (mobile === true) {
+    $entriesList.style.height = 150 + 'px';
+  }
   var targetRec = document.querySelector('li[data-entry-id="' + dataId + '"]');
   targetRec.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
 
 $markerButton.addEventListener('click', handleMarkerOverlay);
+
+$selectFriendSubmit.addEventListener('submit', handleSelectFriendSubmit);
+$selectFriendAddNew.addEventListener('click', handleSelectAddAFriend);
+$selectFriendSelect.addEventListener('change', handleOptionChange);
 
 $fileFriendImg.addEventListener('input', handleFriendImgUpdate);
 $addFriendSubmit.addEventListener('submit', handleFriendSubmit);
