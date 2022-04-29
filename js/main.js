@@ -246,8 +246,10 @@ function handleScreenChange(event) {
   if (!event.matches) {
     $entriesList.style.height = '';
     mobile = false;
+    console.log(event);
   } else {
     mobile = true;
+    console.log(event);
   }
 }
 
@@ -367,6 +369,13 @@ function handleLoadEntry(event) {
       makeMarker(currEntry.marker.latLng, map, currEntry.fromFriend.photo, currEntry.entryId);
     }
   }
+
+  if (data.friends !== []) {
+    for (var j = 0; j < data.friends.length; j++) {
+      var currentFriend = data.friends[j];
+      addFriendSelectOption(currentFriend);
+    }
+  }
 }
 
 if (data.entries.length !== 0) {
@@ -480,6 +489,9 @@ function deleteEntry(dataId) {
 }
 
 function focusEntry(dataId) {
+  if (mobile === true) {
+    $entriesList.style.height = 150 + 'px';
+  }
   var targetRec = document.querySelector('li[data-entry-id="' + dataId + '"]');
   targetRec.scrollIntoView({ behavior: 'smooth', block: 'center' });
 }
