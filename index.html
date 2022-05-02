@@ -11,7 +11,7 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png?">
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png?">
   <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png?">
-  <!-- <link rel="manifest" href="/site.webmanifest"> -->
+  <link rel="manifest" href="/site.webmanifest">
   <link rel="icon" href="images/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
@@ -64,6 +64,7 @@
         <div></div>
       </div>
       <div id="map" class=""></div>
+      <input id="autocomplete" placeholder="search a rec" type="text">
       <button class="marker-button">make a rec</button>
       <div class="marker-overlay hidden">
         <h3 class="font-body">click on the map to add a marker</h3>
@@ -158,7 +159,7 @@
   <script src="js/map.js"></script>
   <script src="js/main.js"></script>
   <script
-    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfUgDMB_ru5W6BPuTGY2wWQAf8CezIG2Q&map_ids=2d5a995064aaf095&callback=initMap"
+    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDfUgDMB_ru5W6BPuTGY2wWQAf8CezIG2Q&map_ids=2d5a995064aaf095&libraries=places&callback=initMap"
     async defer>
   </script>
 

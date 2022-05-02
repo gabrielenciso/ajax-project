@@ -2,7 +2,7 @@
 /* exported focusMarker, makeMarker, deleteMarker */
 
 var map;
-
+var autocomplete;
 function initMap() {
 
   var mapOptions = {
@@ -22,6 +22,13 @@ function initMap() {
   }
 
   window.google.maps.event.addListener(map, 'click', handleClickMap);
+
+  autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'),
+    {
+      types: ['establishment'],
+      componentRestrictions: { country: ['US'] },
+      fields: ['place_id', 'geometry', 'name']
+    });
 
 }
 
