@@ -400,6 +400,7 @@ function handleEntryActions(event) {
 function handleEdit(event) {
   $markerButton.className = 'marker-button hidden';
   $entryOverlay.className = 'entry-overlay';
+  $selectFriend.className = 'select-friend hidden';
   $addFriend.className = 'add-friend hidden';
   $addEntry.className = 'add-entry';
   if (mobile === true) {
