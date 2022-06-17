@@ -64,6 +64,11 @@ function handleSelectFriendSubmit(event) {
 
   // update entry pop up friend img and name
   var selectedId = event.target.elements.selectFriend.value;
+  if (selectedId === '0') {
+    alert('add or select a friend');
+    return;
+  }
+
   for (var i = 0; i < data.friends.length; i++) {
     var currentFriend = data.friends[i];
     if (selectedId === currentFriend.friendId.toString()) {
@@ -103,6 +108,9 @@ function handleFriendSubmit(event) {
   var form = event.target;
   var friend = {};
   friend.photo = form.elements.friendImgUrl.value;
+  if (friend.photo === '') {
+    friend.photo = 'images/personsample.jpeg';
+  }
   friend.name = form.elements.friend.value;
   friend.friendId = data.nextFriendId;
 
@@ -140,6 +148,9 @@ function handleEntrySubmit(event) {
     rec.marker = clickMapEvent;
     rec.name = form.elements.recName.value;
     rec.image = form.elements.entryImage.value;
+    if (rec.image === '') {
+      rec.image = 'images/placeholder-image-square 2.jpg';
+    }
     rec.notes = form.elements.notes.value;
     rec.tags = tags;
     rec.fromFriend = friendEntry;
