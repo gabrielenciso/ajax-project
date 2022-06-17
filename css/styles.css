@@ -41,6 +41,16 @@ button:hover {
   width: 100%;
 }
 
+input#autocomplete {
+  font-size: 1rem;
+  width: 200px;
+  z-index: 1;
+  position: absolute;
+  top: 1.75rem;
+  left: 1rem;
+  padding: 0.3rem;
+}
+
 .entries-list {
   background-color: #f9f9f9;
   height: 92vh;
@@ -380,6 +390,12 @@ ul {
   border-radius: 3px;
 }
 
+.rec-info p {
+  font-size: 1rem;
+  min-height: 125px;
+  overflow: auto;
+}
+
 .options-pop-up p:hover {
   cursor: pointer;
   background-color: #dfdfdf;
@@ -413,12 +429,6 @@ ul {
   border-radius: 8px;
   margin-right: 0.625rem;
   margin-bottom: 0.3rem;
-}
-
-.rec-info p {
-  font-size: 1rem;
-  min-height: 125px;
-  overflow: auto;
 }
 
 .rec-info h3 {
@@ -492,6 +502,15 @@ img[src$="#custom-marker"] {
 .delete-modal span:hover {
   background-color: #e5e5e5;
   cursor: pointer;
+}
+
+.pac-target-input {
+  border: 2px solid #ff5f00;
+}
+
+.pac-target-input:focus {
+  outline: none;
+  border: 2px solid #b20600;
 }
 
 /* loading */

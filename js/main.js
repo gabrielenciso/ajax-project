@@ -1,5 +1,6 @@
 var $markerButton = document.querySelector('.marker-button');
 var $markerOverlay = document.querySelector('.marker-overlay');
+var $searchInput = document.getElementById('autocomplete');
 
 var $entryOverlay = document.querySelector('.entry-overlay');
 
@@ -41,6 +42,7 @@ function handleMarkerOverlay(event) {
   }
   $markerButton.className = 'marker-button hidden';
   $markerOverlay.className = 'marker-overlay';
+  $searchInput.className = 'pac-target-input hidden';
   setTimeout(function () {
     $markerOverlay.className = 'marker-overlay hidden';
   }, 2000);
@@ -191,6 +193,7 @@ function handleEntrySubmit(event) {
   $selectFriend.className = 'select-friend';
   $markerButton.className = 'marker-button';
   $noEntries.className = 'no-entries text-align-center hidden';
+  $searchInput.className = 'pac-target-input';
 
   data.marking = false;
 
@@ -400,8 +403,11 @@ function handleEntryActions(event) {
 function handleEdit(event) {
   $markerButton.className = 'marker-button hidden';
   $entryOverlay.className = 'entry-overlay';
+  $selectFriend.className = 'select-friend hidden';
   $addFriend.className = 'add-friend hidden';
   $addEntry.className = 'add-entry';
+  $searchInput.className = 'pac-target-input hidden';
+
   if (mobile === true) {
     $entriesList.style.height = 150 + 'px';
   }
@@ -510,3 +516,105 @@ $mql.addEventListener('change', handleScreenChange);
 $deleteYesNo.addEventListener('click', handleDeleteYesNo);
 
 window.addEventListener('DOMContentLoaded', handleLoadEntry);
+
+var map;
+var autocomplete;
+var google;
+function initMap() {
+
+  var mapOptions = {
+    center: { lat: 37.759960311146166, lng: -122.42706470323323 },
+    zoom: 18,
+    mapId: '2d5a995064aaf095',
+    disableDefaultUI: true
+  };
+
+  map = new window.google.maps.Map(document.getElementById('map'), mapOptions);
+
+  if (map) {
+    setTimeout(function () {
+      var loading = document.querySelector('.lds-default');
+      loading.className = 'lds-default hidden';
+    }, 1000);
+  }
+
+  window.google.maps.event.addListener(map, 'click', handleClickMap);
+
+  autocomplete = new google.maps.places.Autocomplete(document.getElementById('autocomplete'),
+    {
+      types: ['establishment'],
+      componentRestrictions: { country: ['US'] },
+      fields: ['place_id', 'geometry', 'name']
+    });
+
+  autocomplete.addListener('place_changed', onPlaceChanged);
+
+}
+
+function onPlaceChanged() {
+  var place = autocomplete.getPlace();
+
+  if (!place.geometry) {
+    document.getElementById('autocomplete').placeholder = 'Enter a place';
+  } else {
+    map.setCenter(place.geometry.location);
+  }
+}
+
+function handleClickMap(event) {
+  if (data.marking === false) {
+    return;
+  }
+
+  openEntry(event, map);
+}
+
+var markers = [];
+function makeMarker(location, map, iconUrl, entryId) {
+  var marker = new google.maps.Marker({
+    position: location,
+    map: map,
+    icon: {
+      url: iconUrl + '#custom-marker',
+      scaledSize: new google.maps.Size(60, 60),
+      origin: new google.maps.Point(0, 0),
+      anchor: new google.maps.Point(0, 0)
+    }
+  });
+  window.google.maps.event.addListener(marker, 'click', clickMarker);
+  marker.setMap(map);
+
+  var markerWithId = {
+    marker: marker,
+    entryId: entryId
+  };
+  markers.push(markerWithId);
+}
+
+function deleteMarker(dataId) {
+  for (var i = 0; i < markers.length; i++) {
+    if (dataId === markers[i].entryId.toString()) {
+      markers[i].marker.setMap(null);
+    }
+  }
+}
+
+function clickMarker(event) {
+  for (var i = 0; i < markers.length; i++) {
+    if (event.latLng === markers[i].marker.position) {
+      focusEntry(markers[i].entryId);
+      map.setCenter(markers[i].marker.position);
+    }
+  }
+}
+
+function focusMarker(dataId) {
+  for (var i = 0; i < markers.length; i++) {
+    if (dataId === markers[i].entryId.toString()) {
+      map.setCenter(markers[i].marker.position);
+      map.setZoom(18);
+    }
+  }
+}
+
+window.initMap = initMap;
