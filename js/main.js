@@ -1,3 +1,4 @@
+
 var $markerButton = document.querySelector('.marker-button');
 var $markerOverlay = document.querySelector('.marker-overlay');
 var $searchInput = document.getElementById('autocomplete');
