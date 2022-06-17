@@ -1,5 +1,6 @@
 var $markerButton = document.querySelector('.marker-button');
 var $markerOverlay = document.querySelector('.marker-overlay');
+var $searchInput = document.getElementById('autocomplete');
 
 var $entryOverlay = document.querySelector('.entry-overlay');
 
@@ -191,6 +192,7 @@ function handleEntrySubmit(event) {
   $selectFriend.className = 'select-friend';
   $markerButton.className = 'marker-button';
   $noEntries.className = 'no-entries text-align-center hidden';
+  $searchInput.className = 'pac-target-input';
 
   data.marking = false;
 
@@ -403,6 +405,8 @@ function handleEdit(event) {
   $selectFriend.className = 'select-friend hidden';
   $addFriend.className = 'add-friend hidden';
   $addEntry.className = 'add-entry';
+  $searchInput.className = 'pac-target-input hidden';
+
   if (mobile === true) {
     $entriesList.style.height = 150 + 'px';
   }
@@ -514,6 +518,7 @@ window.addEventListener('DOMContentLoaded', handleLoadEntry);
 
 var map;
 var autocomplete;
+var google;
 function initMap() {
 
   var mapOptions = {
@@ -541,6 +546,18 @@ function initMap() {
       fields: ['place_id', 'geometry', 'name']
     });
 
+  autocomplete.addListener('place_changed', onPlaceChanged);
+
+}
+
+function onPlaceChanged() {
+  var place = autocomplete.getPlace();
+
+  if (!place.geometry) {
+    document.getElementById('autocomplete').placeholder = 'Enter a place';
+  } else {
+    map.setCenter(place.geometry.location);
+  }
 }
 
 function handleClickMap(event) {
