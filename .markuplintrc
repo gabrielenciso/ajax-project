@@ -41,6 +41,12 @@
       }
     },
     {
+      "selector": "script",
+      "rules": {
+        "character-reference": false
+      }
+    },
+    {
       "selector": "a",
       "rules": {
         "character-reference": false

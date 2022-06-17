@@ -1,3 +1,6 @@
+/* global makeMarker, focusMarker, deleteMarker map */
+/* exported openEntry, focusEntry */
+
 var $markerButton = document.querySelector('.marker-button');
 var $markerOverlay = document.querySelector('.marker-overlay');
 

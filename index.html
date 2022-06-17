@@ -6,7 +6,7 @@
   <title>AJAX Project</title>
   <link rel="icon" href="images/favicon.ico">
   <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous">
   <link
     href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;500;700&family=Nunito:wght@300;400;500&display=swap"
     rel="stylesheet">
@@ -14,6 +14,7 @@
   <link rel="stylesheet" href="css/reset.css">
   <link rel="stylesheet" href="css/layout.css">
   <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/spinner.css">
 </head>
 <body>
   <header class="row">
@@ -40,6 +41,20 @@
       <ul id="rec-entries"></ul>
     </div>
     <div class="map-box col-three-fifth">
+      <div class="lds-default inline-block">
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+        <div></div>
+      </div>
       <div id="map" class=""></div>
       <button class="marker-button">make a rec</button>
       <div class="marker-overlay hidden">

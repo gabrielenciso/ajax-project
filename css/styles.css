@@ -351,6 +351,12 @@ ul {
   left: 39px;
 }
 
+.rec-info p {
+  font-size: 1rem;
+  min-height: 125px;
+  overflow: auto;
+}
+
 .options-pop-up p {
   margin: 0.3rem;
   padding: 0 0 0 0.125rem;
@@ -392,17 +398,17 @@ ul {
   margin-bottom: 0.3rem;
 }
 
-.rec-info p {
-  font-size: 1rem;
-  min-height: 125px;
-  overflow: auto;
+.rec-info h3 {
+  margin: auto 0.5rem;
 }
 
 .rec-friend-img {
   position: relative;
   height: 60px;
   width: 60px;
-  margin-right: 1.25rem;
+  margin: 0 0.5rem;
+
+  /* margin-right: 1.25rem; */
 }
 
 .rec-friend-img img {
@@ -415,7 +421,8 @@ ul {
 
 .rec-info div:nth-child(4) {
   border-top: 1px solid #b20600;
-  padding: 0.3rem 1.875rem;
+  padding: 0.3rem 0;
+  flex-wrap: wrap;
 }
 
 img[src$="#custom-marker"] {
@@ -462,16 +469,6 @@ img[src$="#custom-marker"] {
 .delete-modal span:hover {
   background-color: #e5e5e5;
   cursor: pointer;
-}
-
-@keyframes fade-out {
-  from {
-    opacity: 1;
-  }
-
-  to {
-    opacity: 0;
-  }
 }
 
 @media screen and (max-width: 768px) {

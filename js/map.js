@@ -1,3 +1,6 @@
+/* global data, openEntry, focusEntry */
+/* exported focusMarker, makeMarker, deleteMarker */
+
 var map;
 
 function initMap() {
@@ -9,9 +12,16 @@ function initMap() {
     disableDefaultUI: true
   };
 
-  map = new google.maps.Map(document.getElementById('map'), mapOptions);
+  map = new window.google.maps.Map(document.getElementById('map'), mapOptions);
 
-  google.maps.event.addListener(map, 'click', handleClickMap);
+  if (map) {
+    setTimeout(function () {
+      var loading = document.querySelector('.lds-default');
+      loading.className = 'lds-default hidden';
+    }, 1000);
+  }
+
+  window.google.maps.event.addListener(map, 'click', handleClickMap);
 
 }
 
@@ -25,17 +35,17 @@ function handleClickMap(event) {
 
 var markers = [];
 function makeMarker(location, map, iconUrl, entryId) {
-  var marker = new google.maps.Marker({
+  var marker = new window.google.maps.Marker({
     position: location,
     map: map,
     icon: {
       url: iconUrl + '#custom-marker',
-      scaledSize: new google.maps.Size(60, 60),
-      origin: new google.maps.Point(0, 0),
-      anchor: new google.maps.Point(0, 0)
+      scaledSize: new window.google.maps.Size(60, 60),
+      origin: new window.google.maps.Point(0, 0),
+      anchor: new window.google.maps.Point(0, 0)
     }
   });
-  google.maps.event.addListener(marker, 'click', clickMarker);
+  window.google.maps.event.addListener(marker, 'click', clickMarker);
   marker.setMap(map);
 
   var markerWithId = {
