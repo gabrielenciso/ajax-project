@@ -46,6 +46,12 @@
         "character-reference": false
       }
     },
+      {
+        "selector": "meta",
+        "rules": {
+          "character-reference": false
+        }
+      },
     {
       "selector": "a",
       "rules": {

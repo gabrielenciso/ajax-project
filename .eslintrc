@@ -35,6 +35,13 @@
         ]
       }
     ],
+    "no-unused-vars": [
+      "error",
+      {
+        "varsIgnorePattern": "^_",
+        "args": "none"
+      }
+    ],
     "space-before-function-paren": [
       "error",
       {
