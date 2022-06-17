@@ -2,6 +2,7 @@
 
 var $markerButton = document.querySelector('.marker-button');
 var $markerOverlay = document.querySelector('.marker-overlay');
+var $searchInput = document.getElementById('autocomplete');
 
 var $entryOverlay = document.querySelector('.entry-overlay');
 
@@ -193,6 +194,7 @@ function handleEntrySubmit(event) {
   $selectFriend.className = 'select-friend';
   $markerButton.className = 'marker-button';
   $noEntries.className = 'no-entries text-align-center hidden';
+  $searchInput.className = 'pac-target-input';
 
   data.marking = false;
 
@@ -405,6 +407,8 @@ function handleEdit(event) {
   $selectFriend.className = 'select-friend hidden';
   $addFriend.className = 'add-friend hidden';
   $addEntry.className = 'add-entry';
+  $searchInput.className = 'pac-target-input hidden';
+
   if (mobile === true) {
     $entriesList.style.height = 150 + 'px';
   }
@@ -515,7 +519,7 @@ $deleteYesNo.addEventListener('click', handleDeleteYesNo);
 window.addEventListener('DOMContentLoaded', handleLoadEntry);
 
 var map;
-var _autocomplete;
+var autocomplete;
 function initMap() {
 
   var mapOptions = {
@@ -536,13 +540,25 @@ function initMap() {
 
   window.google.maps.event.addListener(map, 'click', handleClickMap);
 
-  _autocomplete = new window.google.maps.places.Autocomplete(document.getElementById('autocomplete'),
+  autocomplete = new window.google.maps.places.Autocomplete(document.getElementById('autocomplete'),
     {
       types: ['establishment'],
       componentRestrictions: { country: ['US'] },
       fields: ['place_id', 'geometry', 'name']
     });
 
+  autocomplete.addListener('place_changed', onPlaceChanged);
+
+}
+
+function onPlaceChanged() {
+  var place = autocomplete.getPlace();
+
+  if (!place.geometry) {
+    document.getElementById('autocomplete').placeholder = 'Enter a place';
+  } else {
+    map.setCenter(place.geometry.location);
+  }
 }
 
 function handleClickMap(event) {
