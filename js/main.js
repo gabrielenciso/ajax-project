@@ -44,6 +44,7 @@ function handleMarkerOverlay(event) {
   }
   $markerButton.className = 'marker-button hidden';
   $markerOverlay.className = 'marker-overlay';
+  $searchInput.className = 'pac-target-input hidden';
   setTimeout(function () {
     $markerOverlay.className = 'marker-overlay hidden';
   }, 2000);
