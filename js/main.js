@@ -217,6 +217,10 @@ var tags = [];
 function handleAddTag(event) {
   var tagValue = $inputTag.value;
 
+  if (tagValue === '') {
+    return;
+  }
+
   var tag = document.createElement('span');
   tag.textContent = tagValue;
   var deleteTag = document.createElement('i');
